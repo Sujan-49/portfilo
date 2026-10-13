@@ -3,23 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sujan S — Software Engineer · AI Applications</title>
+  <title>Sujan S</title>
   <meta name="description" content="Sujan S — Software engineer building AI-powered, full-stack products. Python & FastAPI backends, Next.js interfaces, LLM integrations." />
-  <meta name="theme-color" content="#08111f" />
-  <meta property="og:title" content="Sujan S — Software Engineer · AI Applications" />
-  <meta property="og:description" content="Python & FastAPI backends, Next.js interfaces and LLM integrations — built end to end." />
+  <meta name="theme-color" content="#0a1628" />
+  <meta property="og:title" content="Sujan S — Software Engineer" />
+  <meta property="og:description" content="AI applications, Python & FastAPI backends and Next.js interfaces." />
   <meta property="og:image" content="img/avatar.webp" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-family='monospace' font-weight='700' font-size='24' fill='%2338bdf8'%3E%3CS/%3E%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a1628'/%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-family='monospace' font-weight='700' font-size='24' fill='%2338bdf8'%3E%3CS/%3E%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>try { if (localStorage.getItem("motion") === "off") document.documentElement.classList.add("reduce-motion"); } catch (e) {}</script>
 </head>
 <body>
-  <!-- Background: slow aurora + sparse stars -->
-  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <!-- Background -->
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+  <div class="grid-bg" aria-hidden="true"></div>
   <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="glow" id="glow" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <!-- Icon sprite -->
@@ -28,10 +31,7 @@
     <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3.5 6.5 8.5 6 8.5-6"/></g></symbol>
     <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8Z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></g></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></g></symbol>
-    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12Z"/></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></g></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
   </svg>
 
   <!-- Nav -->
@@ -39,28 +39,28 @@
     <div class="nav__inner">
       <a href="#top" class="nav__logo" data-scroll aria-label="Back to top">&lt;SS/&gt;</a>
       <nav class="nav__links" aria-label="Primary">
-        <a href="#about" data-scroll>About</a>
+        <a href="#top" data-scroll>Home</a>
+        <a href="#about" data-scroll>About Me</a>
         <a href="#experience" data-scroll>Experience</a>
         <a href="#projects" data-scroll>Projects</a>
-        <a href="#stack" data-scroll>Stack</a>
       </nav>
       <div class="nav__actions">
-        <a href="#contact" class="btn btn--primary btn--sm" data-scroll>Contact</a>
+        <a href="#contact" class="btn btn--primary btn--sm" data-scroll>Contact Me</a>
         <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
       </div>
     </div>
   </header>
 
   <div class="menu" id="menu" aria-hidden="true">
-    <a href="#about" data-scroll>About</a>
+    <a href="#top" data-scroll>Home</a>
+    <a href="#about" data-scroll>About Me</a>
     <a href="#experience" data-scroll>Experience</a>
     <a href="#projects" data-scroll>Projects</a>
-    <a href="#stack" data-scroll>Stack</a>
     <a href="#contact" data-scroll>Contact</a>
-    <button class="btn btn--primary" data-resume>View Resume</button>
+    <button class="btn btn--primary" data-resume>Resume</button>
   </div>
 
-  <!-- Social rail -->
+  <!-- Social sidebar -->
   <ul class="rail" aria-label="Social links">
     <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
     <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
@@ -73,64 +73,64 @@
     <section class="hero" id="home">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="status" data-hero><span class="pulse"></span>Frontend Intern @ Pumo · Open to SWE &amp; AI/ML internships</p>
-          <p class="hero__hello" data-hero>Hello there <span class="wave">👋</span></p>
-          <h1 class="hero__title" data-hero>I'm <span class="hl">Sujan S</span></h1>
-          <p class="hero__role" data-hero>a <span class="hl hl--role"><span id="typed">Software Engineer</span><i class="caret" aria-hidden="true"></i></span></p>
-          <p class="hero__lede" data-hero>
-            I build AI-powered, full-stack products — Python &amp; FastAPI backends, Next.js interfaces
-            and LLM integrations, from database schema to the pixels users touch.
+          <p class="hero__hello" data-hero>Hello there 👋</p>
+          <h1 class="hero__title" data-hero>I'm <span class="hl">Sujan</span></h1>
+          <p class="hero__role" data-hero>a <span class="hl hl--role"><span id="typed">AI Developer</span><i class="caret" aria-hidden="true"></i></span></p>
+          <p class="hero__sub" data-hero>
+            Software Engineer <i>|</i> AI Applications <i>|</i> Frontend Intern @ Pumo <i>|</i>
+            Hackathon Runner-up <i>|</i> Cyber Club Secretary
           </p>
           <div class="hero__cta" data-hero>
-            <button class="btn btn--primary" data-resume>Resume <svg class="ico"><use href="#i-doc"/></svg></button>
-            <a class="btn btn--ghost" href="#projects" data-scroll>View my work</a>
+            <button class="btn btn--primary btn--lg" data-resume>Resume</button>
           </div>
         </div>
 
         <div class="hero__visual" data-hero>
           <div class="stage" id="stage">
-            <div class="orbit" aria-hidden="true"></div>
-            <span class="chip-ico c1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
-            <span class="chip-ico c2 back" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" /></span>
+            <span class="ficon f1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
+            <span class="ficon f2 back" title="Crown" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="crown"><path fill="#fbbf24" d="M3 7.5 7.5 11 12 4.5 16.5 11 21 7.5l-2 10.5H5Z"/><path fill="#f59e0b" d="M5 18h14v2H5z"/></svg>
+            </span>
             <button class="avatar" id="avatar" aria-label="Say hi">
               <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
             </button>
-            <span class="chip-ico c3 front" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/fastapi/fastapi-original.svg" alt="" /></span>
-            <span class="chip-ico c4 front" title="Next.js"><img class="inv" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" alt="" /></span>
+            <span class="ficon f3 front" title="Node.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg" alt="" /></span>
+            <span class="ficon f4 front" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" /></span>
+            <span class="ficon f5 front" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/fastapi/fastapi-original.svg" alt="" /></span>
           </div>
           <p class="bubble" id="bubble"></p>
         </div>
       </div>
-      <a class="cue" href="#about" data-scroll aria-label="Scroll down"><span></span></a>
+      <a class="scroll-line" href="#about" data-scroll aria-label="Scroll down"><span></span></a>
     </section>
 
     <!-- ============ 01 ABOUT ============ -->
     <section class="section" id="about">
       <div class="container">
-        <h2 class="title" data-reveal><span>01.</span> About Me</h2>
+        <h2 class="title" data-reveal><span class="num">01.</span> About Me</h2>
         <div class="about">
+          <div class="about__photo" data-reveal>
+            <div class="frame"><img src="img/avatar.webp" alt="Sujan's avatar" loading="lazy" width="1171" height="1164" /></div>
+          </div>
           <div class="about__text" data-reveal>
             <p>
-              I'm a software engineering student at <b>PSG Polytechnic College</b> (Diploma in IT, CGPA 8.8 / 10)
-              and a <b>Frontend Intern at Pumo</b>. I like owning a product end to end — designing the data model,
-              building the API, wiring in an LLM where it genuinely helps, and shipping the interface.
+              Hi there! I'm Sujan, a software engineering student at <a class="link" href="#experience" data-scroll>PSG Polytechnic College</a>
+              who loves building AI-powered products end to end. My toolbox is packed with Python, FastAPI, Next.js, TypeScript and LLM APIs —
+              and I'm currently a Frontend Intern at <a class="link" href="#experience" data-scroll>Pumo</a>.
             </p>
             <p>
-              My recent work spans health tech, conversational AI and academic reporting: from <a class="link" href="#projects" data-scroll>HealthMate AI</a>,
-              which turns medical reports into structured findings on a 3D human atlas, to a role-based portal for IQAC / NBA reporting.
+              Lately I've been building things like <a class="link" href="#projects" data-scroll>HealthMate AI</a>, a personal health OS that turns
+              medical reports into findings on an interactive 3D human atlas, and a role-based academic portal for IQAC / NBA reporting.
             </p>
             <p>
-              I compete in hackathons — runner-up at Webtrix and 3rd at the RSRPTC state-level hackathon — and lead the Cyber Club
-              as Secretary, where I organised three technical events including the inter-polytechnic hackathon IDEAFORGE ’26.
+              Oh, and hackathons? Totally my thing. I've placed runner-up at the Webtrix Hackathon and 3rd at the RSRPTC state-level
+              hackathon — and as Secretary of the Cyber Club, I organised <a class="link" href="#experience" data-scroll>IDEAFORGE ’26</a>, an inter-polytechnic hackathon.
             </p>
+            <p>In a nutshell, I'm all about shipping useful software and learning fast. Here are a few technologies I work with:</p>
+            <ul class="skills">
+              <li>Python</li><li>FastAPI</li><li>Next.js</li><li>TypeScript</li><li>LLM APIs</li><li>PostgreSQL</li>
+            </ul>
           </div>
-          <dl class="facts" data-reveal>
-            <div><dt>Focus</dt><dd>Backend · AI applications · Full-stack</dd></div>
-            <div><dt>Education</dt><dd>Diploma in IT · PSG Polytechnic · 2027</dd></div>
-            <div><dt>CGPA</dt><dd>8.8 / 10</dd></div>
-            <div><dt>Hackathons</dt><dd>5+ · Runner-up · 3rd place</dd></div>
-            <div><dt>Location</dt><dd>Coimbatore, India</dd></div>
-          </dl>
         </div>
       </div>
     </section>
@@ -138,45 +138,61 @@
     <!-- ============ 02 EXPERIENCE ============ -->
     <section class="section" id="experience">
       <div class="container">
-        <h2 class="title" data-reveal><span>02.</span> Experience</h2>
+        <h2 class="title" data-reveal><span class="num">02.</span> My Experience</h2>
 
         <div class="exp" data-reveal>
-          <div class="tabs" role="tablist" aria-label="Experience">
-            <button class="tab is-active" role="tab" aria-selected="true" data-tab="pumo">Pumo</button>
-            <button class="tab" role="tab" aria-selected="false" data-tab="cyber">Cyber Club</button>
-            <button class="tab" role="tab" aria-selected="false" data-tab="psg">PSG Polytechnic</button>
-            <span class="tabs__bar" aria-hidden="true"></span>
+          <div class="exp__side" role="tablist" aria-label="Roles">
+            <button class="role-card is-active" role="tab" aria-selected="true" data-tab="pumo"><b>Pumo</b><span>Frontend Intern</span></button>
+            <button class="role-card" role="tab" aria-selected="false" data-tab="cyber"><b>Cyber Club</b><span>Secretary</span></button>
           </div>
-          <div class="panels">
-            <article class="panel" id="tab-pumo" role="tabpanel">
-              <h3>Frontend Intern <span>@ Pumo</span></h3>
-              <p class="meta">May 2026 — Present</p>
-              <ul class="ticks"><li>Contributing to frontend development tasks as part of the engineering team.</li></ul>
+
+          <div class="exp__main">
+            <article class="job" id="tab-pumo" role="tabpanel">
+              <div class="job__head">
+                <span class="job__logo">P</span>
+                <div><h3>Frontend Intern</h3><p class="job__at">@Pumo · May 2026 — Present</p></div>
+              </div>
+              <ul class="job__list">
+                <li>Contributing to frontend development tasks as part of the engineering team.</li>
+              </ul>
             </article>
-            <article class="panel" id="tab-cyber" role="tabpanel" hidden>
-              <h3>Secretary &amp; Main Head Student <span>@ Cyber Club</span></h3>
-              <p class="meta">PSG Polytechnic College · Ongoing</p>
-              <ul class="ticks">
+            <article class="job" id="tab-cyber" role="tabpanel" hidden>
+              <div class="job__head">
+                <span class="job__logo">CC</span>
+                <div><h3>Secretary &amp; Main Head Student</h3><p class="job__at">@Cyber Club, PSG Polytechnic College</p></div>
+              </div>
+              <ul class="job__list">
                 <li>Lead student mentorship, peer learning and coordination of technical club activities.</li>
-                <li>Organised three technical events, including IDEAFORGE ’26 — an inter-polytechnic hackathon — owning planning, coordination and participant engagement.</li>
-              </ul>
-            </article>
-            <article class="panel" id="tab-psg" role="tabpanel" hidden>
-              <h3>Diploma in Information Technology <span>@ PSG Polytechnic</span></h3>
-              <p class="meta">Coimbatore · Expected 2027</p>
-              <ul class="ticks">
-                <li>CGPA 8.8 / 10.</li>
-                <li>Built three full-stack projects alongside coursework: HealthMate AI, an F1 AI chatbot and the IQAC / NBA academic portal.</li>
+                <li>Organised <b>three technical events</b>, including IDEAFORGE ’26 — an inter-polytechnic hackathon.</li>
+                <li>Owned event planning, coordination and participant engagement.</li>
               </ul>
             </article>
           </div>
+
+          <div class="exp__cloud"><div class="cloud" id="cloud" aria-label="Skills"></div></div>
         </div>
 
-        <div class="wins" data-stagger>
-          <div class="win"><b>2<sup>nd</sup></b><span>Webtrix Hackathon<small>Sugna Engineering College</small></span></div>
-          <div class="win"><b>3<sup>rd</sup></b><span>RSRPTC State-Level Hackathon<small>Polytechnic colleges, Tamil Nadu</small></span></div>
-          <div class="win"><b>5+</b><span>Hackathons competed<small>Design, build, pitch</small></span></div>
-          <div class="win"><b>3</b><span>Tech events organised<small>Incl. IDEAFORGE ’26</small></span></div>
+        <div class="wins">
+          <article class="win" data-reveal>
+            <div class="win__img w1"><span class="win__badge">2nd</span><span class="win__label">Webtrix</span></div>
+            <h3>Runner-up at Webtrix Hackathon</h3>
+            <p>Sugna Engineering College</p>
+          </article>
+          <article class="win" data-reveal>
+            <div class="win__img w2"><span class="win__badge">3rd</span><span class="win__label">RSRPTC</span></div>
+            <h3>3rd Prize at RSRPTC State-Level Hackathon</h3>
+            <p>State-level polytechnic hackathon</p>
+          </article>
+          <article class="win" data-reveal>
+            <div class="win__img w3"><span class="win__badge">Org</span><span class="win__label">IDEAFORGE ’26</span></div>
+            <h3>Organiser of IDEAFORGE ’26</h3>
+            <p>Inter-polytechnic hackathon at PSG Polytechnic</p>
+          </article>
+          <article class="win" data-reveal>
+            <div class="win__img w4"><span class="win__badge">5+</span><span class="win__label">Hackathons</span></div>
+            <h3>Competed in 5+ Hackathons</h3>
+            <p>Designing, building and pitching under pressure</p>
+          </article>
         </div>
       </div>
     </section>
@@ -184,80 +200,92 @@
     <!-- ============ 03 PROJECTS ============ -->
     <section class="section" id="projects">
       <div class="container">
-        <h2 class="title" data-reveal><span>03.</span> Selected Work</h2>
+        <h2 class="title" data-reveal><span class="num">03.</span> Cool Projects</h2>
 
-        <div class="work">
-          <article class="proj proj--feature" data-reveal data-spot>
-            <div class="proj__body">
-              <p class="proj__kicker">Featured · AI HealthTech</p>
+        <div class="projects">
+          <article class="card card--big g-teal" data-reveal data-tilt>
+            <div class="card__text">
               <h3>HealthMate AI</h3>
-              <p class="proj__desc">A personal health OS. It reads medical reports, organises every record in one place, and lets you explore findings on an interactive 3D Human Atlas.</p>
-              <p class="proj__challenge"><b>Challenge —</b> turning unstructured reports into structured findings with Google Generative AI, persisting them in Supabase, and anchoring each to a region of a Three.js body model.</p>
-              <ul class="tags"><li>Next.js</li><li>TypeScript</li><li>Three.js</li><li>Supabase</li><li>Gemini</li></ul>
-              <div class="proj__links">
-                <a class="btn btn--ghost btn--sm" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener">Live demo <svg class="ico"><use href="#i-arrow"/></svg></a>
-                <a class="icon-link" href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
+              <p>Your personal health OS — AI insights from medical reports, mapped onto a 3D human atlas.</p>
+            </div>
+            <div class="phone phone--lg" aria-hidden="true">
+              <div class="phone__screen">
+                <div class="ui-top"><i></i><b>HealthMate</b></div>
+                <div class="ui-atlas"><div class="ui-body"></div><span class="ui-pin p1"></span><span class="ui-pin p2"></span><span class="ui-pin p3"></span></div>
+                <div class="ui-row"><span>Report</span><b>Parsed</b></div>
+                <div class="ui-row"><span>Findings</span><b>3 linked</b></div>
               </div>
             </div>
-            <div class="proj__panel panel--teal">
-              <div class="hi"><span>Modules</span><b>6</b><small>overview, meds, appointments, care network, providers, emergency</small></div>
-              <div class="hi"><span>3D</span><b>Human Atlas</b><small>Three.js body model linked to findings</small></div>
-              <div class="hi"><span>AI</span><b>Report insights</b><small>Google Generative AI</small></div>
-              <div class="hi"><span>Data</span><b>Supabase</b><small>records &amp; storage</small></div>
+            <div class="card__links">
+              <a href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="HealthMate AI on GitHub"><svg><use href="#i-gh"/></svg></a>
+              <a href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" aria-label="Open HealthMate AI"><svg><use href="#i-ext"/></svg></a>
             </div>
           </article>
 
-          <article class="proj" data-reveal data-spot>
-            <div class="proj__body">
-              <p class="proj__kicker">Conversational AI</p>
+          <article class="card g-violet" data-reveal data-tilt>
+            <div class="card__text">
               <h3>F1 AI Chatbot</h3>
-              <p class="proj__desc">Answers natural-language questions about Formula 1 using an LLM API.</p>
-              <p class="proj__challenge"><b>Challenge —</b> carrying conversation context across turns so follow-up questions resolve against earlier answers.</p>
-              <ul class="tags"><li>Python</li><li>LLM API</li><li>Prompt engineering</li></ul>
-              <div class="proj__links">
-                <a class="icon-link" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a>
+              <p>Ask anything about Formula 1 — an LLM chatbot that remembers the conversation.</p>
+            </div>
+            <div class="phone" aria-hidden="true">
+              <div class="phone__screen">
+                <p class="msg me">Most wins at Monza?</p>
+                <p class="msg">Checking records<span class="dots"><i></i><i></i><i></i></span></p>
+                <p class="msg me">Hybrid era?</p>
               </div>
+            </div>
+            <div class="card__links">
+              <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="F1 AI Chatbot on GitHub"><svg><use href="#i-gh"/></svg></a>
+              <span></span>
             </div>
           </article>
 
-          <article class="proj" data-reveal data-spot>
-            <div class="proj__body">
-              <p class="proj__kicker">Full-stack · EdTech</p>
-              <h3>IQAC / NBA Academic Portal</h3>
-              <p class="proj__desc">College portal with role-based dashboards for student and staff records, marks workflows, and performance &amp; admission analytics.</p>
-              <p class="proj__challenge"><b>Challenge —</b> modelling academic data so reports roll up at department, batch, teacher, student and subject level.</p>
-              <ul class="tags"><li>PHP</li><li>MySQL</li><li>JavaScript</li><li>HTML / CSS</li></ul>
-              <div class="proj__links">
-                <a class="btn btn--ghost btn--sm" href="https://iqac-dep.vercel.app" target="_blank" rel="noopener">Live demo <svg class="ico"><use href="#i-arrow"/></svg></a>
-                <a class="icon-link" href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
+          <article class="card g-blue" data-reveal data-tilt>
+            <div class="card__text">
+              <h3>IQAC / NBA Portal</h3>
+              <p>Role-based academic dashboards, marks workflows and IQAC / NBA reports.</p>
+            </div>
+            <div class="phone" aria-hidden="true">
+              <div class="phone__screen">
+                <div class="ui-top"><i></i><b>IQAC</b></div>
+                <div class="ui-bars"><i style="--h:60%"></i><i style="--h:85%"></i><i style="--h:45%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div>
+                <div class="ui-row"><span>Batch</span><b>2024</b></div>
+                <div class="ui-row"><span>Dept</span><b>IT</b></div>
               </div>
             </div>
+            <div class="card__links">
+              <a href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="IQAC portal on GitHub"><svg><use href="#i-gh"/></svg></a>
+              <a href="https://iqac-dep.vercel.app" target="_blank" rel="noopener" aria-label="Open IQAC portal"><svg><use href="#i-ext"/></svg></a>
+            </div>
           </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ 04 STACK ============ -->
-    <section class="section" id="stack">
-      <div class="container">
-        <h2 class="title" data-reveal><span>04.</span> Tech Stack</h2>
-        <div class="stack" data-stagger id="stackGrid"></div>
-      </div>
-    </section>
+          <article class="card g-indigo" data-reveal data-tilt>
+            <div class="card__text">
+              <h3>This Portfolio</h3>
+              <p>Hand-built with HTML, CSS, GSAP and a canvas starfield — no frameworks.</p>
+            </div>
+            <div class="phone" aria-hidden="true">
+              <div class="phone__screen phone__screen--code">
+<pre><span class="k">const</span> me = {
+  name: <span class="s">"Sujan"</span>,
+  ships: <span class="k">true</span>,
+};</pre>
+              </div>
+            </div>
+            <div class="card__links">
+              <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
+              <span></span>
+            </div>
+          </article>
 
-    <!-- ============ 05 LEADERSHIP ============ -->
-    <section class="section" id="leadership">
-      <div class="container">
-        <h2 class="title" data-reveal><span>05.</span> Leadership &amp; Certifications</h2>
-        <div class="lead" data-stagger>
-          <div class="row"><span class="row__ico"><svg><use href="#i-shield"/></svg></span><div><h3>Secretary &amp; Main Head Student — Cyber Club</h3><p>Lead student mentorship, peer learning and coordination of technical activities.</p></div></div>
-          <div class="row"><span class="row__ico"><svg><use href="#i-bolt"/></svg></span><div><h3>Organiser — IDEAFORGE ’26</h3><p>Ran an inter-polytechnic hackathon: planning, coordination and participant engagement.</p></div></div>
-          <div class="row"><span class="row__ico"><svg><use href="#i-users"/></svg></span><div><h3>Technical Event Organizer</h3><p>Organised three technical events for the student community.</p></div></div>
-        </div>
-        <div class="certs" data-stagger>
-          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /><div><b>Python</b><span>HackerRank</span></div></div>
-          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" alt="" /><div><b>JavaScript</b><span>HackerRank</span></div></div>
-          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" /><div><b>Web Design</b><span>freeCodeCamp</span></div></div>
+          <a class="card card--more" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" data-reveal data-tilt>
+            <div class="card__text">
+              <h3>More on GitHub</h3>
+              <p>Experiments, hackathon builds and work in progress.</p>
+            </div>
+            <span class="more__icon"><svg><use href="#i-gh"/></svg></span>
+            <div class="card__links"><span></span><svg class="ext"><use href="#i-ext"/></svg></div>
+          </a>
         </div>
       </div>
     </section>
@@ -265,29 +293,27 @@
     <!-- ============ CONTACT ============ -->
     <section class="section contact" id="contact">
       <div class="container">
-        <div class="contact__card" data-reveal>
-          <p class="contact__kicker">06. What's next?</p>
-          <h2>Get In Touch</h2>
-          <p>I'm looking for SWE and AI/ML internship opportunities. If you're hiring or building something interesting, my inbox is open.</p>
-          <div class="contact__cta">
-            <a class="btn btn--primary" href="mailto:sujan.swe17@gmail.com">Say hello <svg class="ico"><use href="#i-mail"/></svg></a>
-            <button class="btn btn--ghost" data-resume>View resume</button>
+        <div class="touch" data-reveal>
+          <div>
+            <p class="touch__kicker">What's Next?</p>
+            <h2>Get In Touch</h2>
+            <p>Whether you have a question, an internship opportunity or just want to say hi, I'll try my best to get back to you!</p>
+            <a class="btn btn--primary" href="mailto:sujan.swe17@gmail.com">Say Hello</a>
           </div>
+          <span class="touch__emoji" aria-hidden="true">🤝</span>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <span>© <span id="year">2026</span> Sujan S</span>
-      <ul class="footer__social">
-        <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
-        <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
-        <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
-      </ul>
-      <span>Built with HTML, CSS &amp; GSAP · <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener">Source</a></span>
-    </div>
+    <p class="footer__name">Sujan S</p>
+    <ul class="footer__social">
+      <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
+      <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
+      <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
+    </ul>
+    <p class="footer__small">© <span id="year">2026</span> · <button class="motion-toggle" id="motionToggle" aria-pressed="false">Reduce motion</button></p>
   </footer>
 
   <!-- Resume modal -->

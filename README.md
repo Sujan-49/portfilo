@@ -26,6 +26,7 @@ Drag the folder into Vercel / Netlify, or push to GitHub and enable GitHub Pages
 index.html       content & sections
 css/style.css    design tokens, layout, responsive rules
 js/stars.js      sparse twinkling star layer (scroll parallax)
-js/main.js       smooth scroll, reveals, typewriter, avatar tilt, tabs, tech stack, resume modal
+js/main.js       smooth scroll, reveals, typewriter, avatar tilt, role tabs, 3D skill cloud,
+                 card tilt, cursor glow, motion toggle, resume modal
 img/avatar.webp  hero avatar (background removed)
 ```
