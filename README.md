@@ -1,6 +1,6 @@
 # Sujan S — Portfolio
 
-Static site: no build step. GSAP ScrollTrigger + Lenis smooth scroll from CDNs, Geist fonts. Navy + sky-blue design.
+Static site: no build step. GSAP ScrollTrigger + Lenis smooth scroll from CDNs; Inter Tight, Instrument Serif and Geist Mono from Google Fonts.
 
 ## Run locally
 
@@ -23,10 +23,11 @@ Drag the folder into Vercel / Netlify, or push to GitHub and enable GitHub Pages
 ## Structure
 
 ```
-index.html       content & sections
-css/style.css    design tokens, layout, responsive rules
-js/main.js       smooth scroll, reveals, typewriter, avatar tilt, role tabs, 3D skill cloud,
-                 card tilt, cursor glow, motion toggle, resume modal
-img/avatar.webp  hero avatar (background removed)
+index.html            content & sections
+css/style.css         design tokens ("Signal": black, warm white, lime accent), layout, responsive
+js/main.js            dot-matrix hero field, Lenis smooth scroll, GSAP reveals, stacking case studies,
+                      F1 chat demo, typing code/email, cursor, résumé modal
+img/avatar.webp       hero avatar (background removed)
 img/sujan-beach.webp  About photo
+img/healthmate.webp   HealthMate AI screenshot
 ```

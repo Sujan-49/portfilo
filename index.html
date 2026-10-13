@@ -3,349 +3,289 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sujan S</title>
-  <meta name="description" content="Sujan S — Software engineer building AI-powered, full-stack products. Python & FastAPI backends, Next.js interfaces, LLM integrations." />
-  <meta name="theme-color" content="#0a0a1a" />
-  <meta property="og:title" content="Sujan S — Software Engineer" />
-  <meta property="og:description" content="AI applications, Python & FastAPI backends and Next.js interfaces." />
+  <title>Sujan S — Software Engineer, AI Applications</title>
+  <meta name="description" content="Sujan S builds AI-powered, full-stack products — Python & FastAPI backends, Next.js interfaces, LLM integrations." />
+  <meta name="theme-color" content="#0a0a0b" />
+  <meta property="og:title" content="Sujan S — Software Engineer, AI Applications" />
+  <meta property="og:description" content="Building AI products that ship." />
   <meta property="og:image" content="img/avatar.webp" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a1a'/%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-family='monospace' font-weight='700' font-size='24' fill='%23a855f7'%3E%3CS/%3E%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d4ff3a'/%3E%3Ctext x='50%25' y='66%25' text-anchor='middle' font-family='Arial' font-weight='900' font-size='34' fill='%230a0a0b'%3Es%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <script>try { localStorage.removeItem("motion"); } catch (e) {}</script>
 </head>
 <body>
-  <!-- Boot sequence: plays once per visit -->
-  <div class="boot" id="boot" aria-hidden="true">
-    <pre class="boot__log" id="bootLog"></pre>
-    <button class="boot__skip" id="bootSkip">skip ↵</button>
-  </div>
-  <!-- Background -->
-  <div class="mesh" aria-hidden="true"><span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span></div>
-  <div class="grid-bg" aria-hidden="true"></div>
+  <!-- ambient -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><b class="cursor__label"></b></span></div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
-  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
-  <div class="glow" id="glow" aria-hidden="true"></div>
 
-  <!-- Icon sprite -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></symbol>
     <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3.5 6.5 8.5 6 8.5-6"/></g></symbol>
-    <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8Z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></g></symbol>
-    <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
   </svg>
 
-  <!-- Nav -->
+  <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#top" class="nav__logo" data-scroll aria-label="Sujan S — back to top">sujan<span>.</span></a>
-      <nav class="nav__links" aria-label="Primary">
-        <span class="nav__pill" aria-hidden="true"></span>
-        <a href="#top" data-scroll>Home</a>
-        <a href="#about" data-scroll>About Me</a>
-        <a href="#experience" data-scroll>Experience</a>
-        <a href="#projects" data-scroll>Projects</a>
-        <a href="#contact" data-scroll>Contact</a>
-      </nav>
-      <div class="nav__actions">
-        <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-      </div>
-    </div>
+    <a href="#top" class="nav__brand" data-scroll aria-label="Sujan S — back to top"><span class="nav__mark">s</span><span class="nav__name">Sujan S</span></a>
+    <nav class="nav__links" aria-label="Primary">
+      <span class="nav__pill" aria-hidden="true"></span>
+      <a href="#work" data-scroll>Work</a>
+      <a href="#about" data-scroll>About</a>
+      <a href="#experience" data-scroll>Experience</a>
+      <a href="#contact" data-scroll>Contact</a>
+    </nav>
+    <button class="nav__cv" data-resume>Résumé <svg><use href="#i-arrow"/></svg></button>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
   </header>
-
   <div class="menu" id="menu" aria-hidden="true">
-    <a href="#top" data-scroll>Home</a>
-    <a href="#about" data-scroll>About Me</a>
+    <a href="#work" data-scroll>Work</a>
+    <a href="#about" data-scroll>About</a>
     <a href="#experience" data-scroll>Experience</a>
-    <a href="#projects" data-scroll>Projects</a>
     <a href="#contact" data-scroll>Contact</a>
-    <button class="btn btn--primary" data-resume>Resume</button>
+    <button data-resume>Résumé ↗</button>
   </div>
-
-  <!-- Social sidebar -->
-  <ul class="rail" aria-label="Social links">
-    <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
-    <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
-    <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
-    <li><button data-resume aria-label="Resume"><svg><use href="#i-doc"/></svg></button></li>
-  </ul>
 
   <main id="top">
     <!-- ============ HERO ============ -->
-    <section class="hero" id="home">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <p class="masthead" data-hero><span>Software Engineer</span><i></i><span>Coimbatore, IN</span><i></i><span id="clock">— IST</span></p>
-          <h1 class="hero__name" aria-label="Sujan S"><span class="mask"><span class="rise">Sujan</span></span> <span class="mask"><span class="rise">S</span></span></h1>
-          <p class="hero__line" data-hero>Building AI products <em>that ship.</em></p>
-          <p class="hero__role" data-hero><span id="typed">AI Developer</span><i class="caret" aria-hidden="true"></i></p>
-          <ul class="pills" data-hero>
-            <li class="pill pill--ai">AI Applications</li>
-            <li class="pill">Full-Stack</li>
-            <li class="pill pill--ai">LLM Integration</li>
-            <li class="pill pill--ok"><span class="pulse"></span>Frontend Intern @ Pumo</li>
-          </ul>
-          <div class="hero__cta" data-hero>
-            <button class="btn btn--primary btn--lg" data-resume data-magnetic>Resume</button>
-            <a class="btn btn--ghost btn--lg" href="#projects" data-scroll>See what I've built <span class="arrow">→</span></a>
-          </div>
-        </div>
+    <section class="hero" id="hero">
+      <canvas class="field" id="field" aria-hidden="true"></canvas>
+      <div class="wrap hero__inner">
+        <p class="hero__meta" data-in>
+          <span class="dot-live"></span>Open to SWE / AI-ML internships
+          <span class="sep"></span>Coimbatore, IN <span id="clock" class="mono"></span>
+        </p>
 
-        <div class="hero__visual">
-          <div class="stage" id="stage">
-            <span class="ficon f1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
-            <span class="ficon f2 back" title="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg" alt="" /></span>
-            <button class="avatar" id="avatar" aria-label="Say hi">
+        <h1 class="hero__title" aria-label="Building AI products that ship.">
+          <span class="line"><span class="rise">Building AI</span></span>
+          <span class="line"><span class="rise">products <em>that ship.</em></span></span>
+        </h1>
+
+        <div class="hero__bottom">
+          <div class="hero__intro" data-in>
+            <p>I'm <b>Sujan</b> — a software engineer working on AI applications. Python &amp; FastAPI backends, Next.js interfaces, and the LLM wiring in between.</p>
+            <div class="hero__cta">
+              <a class="btn btn--accent" href="#work" data-scroll data-magnetic>See the work <svg><use href="#i-arrow"/></svg></a>
+              <button class="btn btn--line" data-resume data-magnetic>Résumé</button>
+            </div>
+          </div>
+
+          <figure class="avatar" id="avatar" data-in>
+            <div class="avatar__card" id="avatarCard">
               <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
-            </button>
-            <span class="ficon f3 front" title="Node.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg" alt="" /></span>
-            <span class="ficon f4 front" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" /></span>
-            <span class="ficon f5 front" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/fastapi/fastapi-original.svg" alt="" /></span>
-          </div>
-          <p class="bubble" id="bubble"></p>
+            </div>
+          </figure>
         </div>
-      </div>
-      <a class="scroll-line" href="#about" data-scroll aria-label="Scroll down"><span></span></a>
-    </section>
 
-    <!-- ============ 01 ABOUT ============ -->
-    <section class="section" id="about">
-      <div class="container">
-        <h2 class="title" data-reveal>About <em>me</em></h2>
-        <div class="about">
-          <div class="about__photo" data-reveal>
-            <figure class="photo" id="photo">
-              <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
-              <figcaption><span class="pulse"></span>Coimbatore, India</figcaption>
-            </figure>
-          </div>
-          <div class="about__text" data-reveal>
-            <p>
-              I build stuff. Right now I'm a frontend intern at <a class="link" href="#experience" data-scroll>Pumo</a>, making sure the UI
-              doesn't look broken. I'm studying IT at <a class="link" href="#experience" data-scroll>PSG Polytechnic</a> in Coimbatore — 8.8 CGPA, done in 2027.
-            </p>
-            <p>
-              Before that I built <a class="link" href="#projects" data-scroll>HealthMate AI</a>, a health app with a 3D human body you can click around,
-              mostly to see if I could. Also: an academic portal for IQAC / NBA reporting, and an F1 chatbot — because F1.
-            </p>
-            <p>
-              Hackathons: runner-up at Webtrix, 3rd at RSRPTC. As Cyber Club secretary I organised IDEAFORGE ’26, which turned out to be
-              a lot more spreadsheets than code.
-            </p>
-            <p>I ship things. Sometimes they break. I fix them. Repeat. Usually with:</p>
-            <ul class="skills">
-              <li>Python</li><li>FastAPI</li><li>Next.js</li><li>TypeScript</li><li>LLM APIs</li><li>PostgreSQL</li>
-            </ul>
-          </div>
-        </div>
+        <dl class="stats" data-in>
+          <div><dt>CGPA</dt><dd><span data-count="8.8" data-dec="1">8.8</span></dd></div>
+          <div><dt>Hackathons</dt><dd><span data-count="5">5</span>+</dd></div>
+          <div><dt>Podium finishes</dt><dd><span data-count="2">2</span></dd></div>
+          <div><dt>Projects shipped</dt><dd><span data-count="3">3</span></dd></div>
+        </dl>
       </div>
     </section>
 
-    <!-- ============ CURRENTLY ============ -->
-    <section class="section section--tight" id="now">
-      <div class="container">
-        <h2 class="title" data-reveal><em>Currently</em></h2>
-        <ul class="now" data-reveal>
-          <li><span class="now__k">Interning <i class="now__arrow">→</i></span><span class="now__v">at Pumo — frontend, mostly.</span></li>
-          <li><span class="now__k">Building <i class="now__arrow">→</i></span><span class="now__v">HealthMate AI. The 3D human atlas still gets tweaked every week.</span></li>
-          <li><span class="now__k">Running <i class="now__arrow">→</i></span><span class="now__v">the Cyber Club at PSG Polytechnic.</span></li>
-          <li><span class="now__k">Looking for <i class="now__arrow">→</i></span><span class="now__v">SWE / AI-ML internships. <a class="link" href="#contact" data-scroll>Say hi</a>.</span></li>
-        </ul>
-      </div>
-    </section>
+    <!-- ============ BAND ============ -->
+    <div class="band" aria-hidden="true"><div class="band__track" id="band"></div></div>
 
-    <!-- ============ 02 EXPERIENCE ============ -->
-    <section class="section" id="experience">
-      <div class="container">
-        <h2 class="title" data-reveal>Experience</h2>
+    <!-- ============ WORK ============ -->
+    <section class="section work" id="work">
+      <div class="wrap">
+        <header class="head">
+          <p class="head__k mono">Selected work</p>
+          <h2 class="head__t"><span class="line"><span class="rise">Things I've <em>built.</em></span></span></h2>
+        </header>
 
-        <div class="exp" data-reveal>
-          <div class="exp__side" role="tablist" aria-label="Roles">
-            <p class="exp__label">Work</p>
-            <button class="role-card is-active" role="tab" aria-selected="true" data-tab="pumo" data-tilt><b>Pumo</b><span>Frontend Intern</span></button>
-            <p class="exp__label">Leadership</p>
-            <button class="role-card role-card--minor" role="tab" aria-selected="false" data-tab="cyber" data-tilt><b>Cyber Club</b><span>Secretary</span></button>
-          </div>
-
-          <div class="exp__main">
-            <article class="job" id="tab-pumo" role="tabpanel">
-              <div class="job__head">
-                <span class="job__logo">P</span>
-                <div><h3>Frontend Intern</h3><p class="job__at">@Pumo · May 2026 — Present</p></div>
+        <div class="cases">
+          <!-- HealthMate -->
+          <article class="case" style="--tint: 52, 211, 153">
+            <div class="case__info">
+              <p class="case__idx mono">01 / AI · HealthTech</p>
+              <h3 class="case__title">HealthMate AI</h3>
+              <p class="case__desc">A personal health OS. It reads medical reports, turns them into structured findings, and pins each one to an interactive 3D human body.</p>
+              <ul class="case__stack mono"><li>Next.js</li><li>TypeScript</li><li>Three.js</li><li>Supabase</li><li>Gemini</li></ul>
+              <div class="case__links">
+                <a class="btn btn--accent btn--sm" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener">Live site <svg><use href="#i-arrow"/></svg></a>
+                <a class="icon" href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="HealthMate AI on GitHub"><svg><use href="#i-gh"/></svg></a>
               </div>
-              <ul class="job__list">
-                <li>Contributing to frontend development tasks as part of the engineering team.</li>
-              </ul>
-            </article>
-            <article class="job" id="tab-cyber" role="tabpanel" hidden>
-              <div class="job__head">
-                <span class="job__logo">CC</span>
-                <div><h3>Secretary &amp; Main Head Student</h3><p class="job__at">@Cyber Club, PSG Polytechnic College</p></div>
+            </div>
+            <a class="case__visual" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" data-cursor="Open" aria-label="Open HealthMate AI">
+              <div class="browser">
+                <div class="browser__bar"><i></i><i></i><i></i><span>health-mate-ai-nine.vercel.app</span></div>
+                <img src="img/healthmate.webp" alt="HealthMate AI landing page" width="1400" height="707" loading="lazy" />
               </div>
-              <ul class="job__list">
-                <li>Lead student mentorship, peer learning and coordination of technical club activities.</li>
-                <li>Organised <b>three technical events</b>, including IDEAFORGE ’26 — an inter-polytechnic hackathon.</li>
-                <li>Owned event planning, coordination and participant engagement.</li>
-              </ul>
-            </article>
-          </div>
+              <svg class="ecg" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 H170 L188 50 L200 22 L214 70 L232 6 L250 64 L262 50 H380 L392 50 L402 34 L414 58 L424 50 H600"/></svg>
+            </a>
+          </article>
 
-          <div class="exp__cloud"><div class="cloud" id="cloud" aria-label="Skills"></div></div>
+          <!-- F1 -->
+          <article class="case" style="--tint: 255, 77, 61">
+            <div class="case__info">
+              <p class="case__idx mono">02 / Conversational AI</p>
+              <h3 class="case__title">F1 AI Chatbot</h3>
+              <p class="case__desc">Ask anything about Formula 1. An LLM chatbot that keeps conversation context, so follow-up questions actually make sense.</p>
+              <ul class="case__stack mono"><li>Python</li><li>LLM API</li><li>Prompt engineering</li></ul>
+              <div class="case__links">
+                <a class="icon" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="F1 AI Chatbot on GitHub"><svg><use href="#i-gh"/></svg></a>
+                <span class="hint mono">hover the chat ↗</span>
+              </div>
+            </div>
+            <div class="case__visual case__visual--chat" data-cursor="Ask" id="f1">
+              <div class="chat">
+                <p class="chat__head mono"><span class="dot-live dot-live--red"></span>f1-bot · online</p>
+                <p class="msg msg--me" id="f1q">Most wins at Monza?</p>
+                <p class="msg msg--bot" id="f1a"><span class="typing"><i></i><i></i><i></i></span></p>
+              </div>
+              <span class="speed" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+          </article>
+
+          <!-- IQAC -->
+          <article class="case" style="--tint: 91, 140, 255">
+            <div class="case__info">
+              <p class="case__idx mono">03 / Full-stack · EdTech</p>
+              <h3 class="case__title">IQAC / NBA Portal</h3>
+              <p class="case__desc">A college portal with role-based dashboards for students and staff, marks workflows, and IQAC / NBA reports at department, batch, teacher, student and subject level.</p>
+              <ul class="case__stack mono"><li>PHP</li><li>MySQL</li><li>JavaScript</li><li>HTML / CSS</li></ul>
+              <div class="case__links">
+                <a class="btn btn--accent btn--sm" href="https://iqac-dep.vercel.app" target="_blank" rel="noopener">Live site <svg><use href="#i-arrow"/></svg></a>
+                <a class="icon" href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="IQAC portal on GitHub"><svg><use href="#i-gh"/></svg></a>
+              </div>
+            </div>
+            <a class="case__visual case__visual--dash" href="https://iqac-dep.vercel.app" target="_blank" rel="noopener" data-cursor="Open" aria-label="Open IQAC portal">
+              <div class="dash">
+                <div class="dash__top mono"><span>IQAC · Dept of IT</span><span>Batch 2024</span></div>
+                <div class="dash__bars"><i style="--h:58%"></i><i style="--h:82%"></i><i style="--h:44%"></i><i style="--h:71%"></i><i style="--h:93%"></i><i style="--h:66%"></i><i style="--h:77%"></i></div>
+                <div class="dash__rows"><span>Department</span><span>Batch</span><span>Teacher</span><span>Student</span><span>Subject</span></div>
+              </div>
+            </a>
+          </article>
+
+          <!-- Portfolio -->
+          <article class="case case--self" style="--tint: 212, 255, 58">
+            <div class="case__info">
+              <p class="case__idx mono">04 / Creative dev</p>
+              <h3 class="case__title">This portfolio</h3>
+              <p class="case__desc">Hand-built with HTML, CSS and GSAP — no framework. The dot field up top is a 2D canvas reacting to your cursor.</p>
+              <ul class="case__stack mono"><li>HTML</li><li>CSS</li><li>GSAP</li><li>Canvas</li></ul>
+              <div class="case__links">
+                <a class="icon" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a>
+                <span class="hint mono">More on GitHub: health-mate-ai · iqac-dep</span>
+              </div>
+            </div>
+            <div class="case__visual case__visual--code" data-cursor="Run">
+              <pre class="code" id="code"></pre>
+            </div>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="wrap about__grid">
+        <figure class="photo" id="photo">
+          <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
+        </figure>
+        <div class="about__text">
+          <header class="head head--tight">
+            <p class="head__k mono">About</p>
+            <h2 class="head__t"><span class="line"><span class="rise">I build <em>stuff.</em></span></span></h2>
+          </header>
+          <p data-up>I just finished a six-week frontend internship at Pumo, where my job was making sure the UI didn't look broken. I'm studying IT at PSG Polytechnic in Coimbatore — 8.8 CGPA, done in 2027.</p>
+          <p data-up>Before that I built HealthMate AI, a health app with a 3D human body you can click around, mostly to see if I could. Also an academic portal for IQAC / NBA reporting, and an F1 chatbot — because F1.</p>
+          <p data-up>Hackathons: runner-up at Webtrix, 3rd at RSRPTC. As Cyber Club secretary I organised IDEAFORGE ’26, which turned out to be a lot more spreadsheets than code.</p>
+
+          <ul class="now" data-up>
+            <li><span class="mono">now</span>Looking for SWE / AI-ML internships</li>
+            <li><span class="mono">building</span>HealthMate AI — the 3D atlas still gets tweaked every week</li>
+            <li><span class="mono">running</span>the Cyber Club at PSG Polytechnic</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section xp" id="experience">
+      <div class="wrap">
+        <header class="head">
+          <p class="head__k mono">Experience</p>
+          <h2 class="head__t"><span class="line"><span class="rise">Where I've <em>been.</em></span></span></h2>
+        </header>
+
+        <ol class="xp__list">
+          <li class="xp__row" data-up>
+            <span class="xp__when mono">May 1 – Jun 7, 2026</span>
+            <div class="xp__what"><h3>Frontend Intern <span>Pumo</span></h3><p>Six weeks on the engineering team, working on the frontend.</p></div>
+            <span class="xp__tag mono">Internship</span>
+          </li>
+          <li class="xp__row" data-up>
+            <span class="xp__when mono">Ongoing</span>
+            <div class="xp__what"><h3>Secretary &amp; Main Head Student <span>Cyber Club, PSG Polytechnic</span></h3><p>Lead mentorship, peer learning and the club's technical activities. Organised three tech events, including the inter-polytechnic hackathon IDEAFORGE ’26.</p></div>
+            <span class="xp__tag mono">Leadership</span>
+          </li>
+          <li class="xp__row" data-up>
+            <span class="xp__when mono">— 2027</span>
+            <div class="xp__what"><h3>Diploma in Information Technology <span>PSG Polytechnic College</span></h3><p>CGPA 8.8 / 10. Three full-stack projects built alongside coursework.</p></div>
+            <span class="xp__tag mono">Education</span>
+          </li>
+        </ol>
 
         <div class="wins">
-          <article class="win" data-reveal data-tilt>
-            <div class="win__img w1"><span class="win__badge">2nd</span><span class="win__label">Webtrix</span></div>
-            <h3>Runner-up at Webtrix Hackathon</h3>
-            <p>Sugna Engineering College</p>
-          </article>
-          <article class="win" data-reveal data-tilt>
-            <div class="win__img w2"><span class="win__badge">3rd</span><span class="win__label">RSRPTC</span></div>
-            <h3>3rd Prize at RSRPTC State-Level Hackathon</h3>
-            <p>State-level polytechnic hackathon</p>
-          </article>
-          <article class="win" data-reveal data-tilt>
-            <div class="win__img w3"><span class="win__badge">Org</span><span class="win__label">IDEAFORGE ’26</span></div>
-            <h3>Organiser of IDEAFORGE ’26</h3>
-            <p>Inter-polytechnic hackathon at PSG Polytechnic</p>
-          </article>
-          <article class="win" data-reveal data-tilt>
-            <div class="win__img w4"><span class="win__badge">5+</span><span class="win__label">Hackathons</span></div>
-            <h3>Competed in 5+ Hackathons</h3>
-            <p>Designing, building and pitching under pressure</p>
-          </article>
+          <div class="win" data-up><b>2nd</b><span>Webtrix Hackathon</span><small>Sugna Engineering College</small></div>
+          <div class="win" data-up><b>3rd</b><span>RSRPTC State-Level Hackathon</span><small>Polytechnic colleges, TN</small></div>
+          <div class="win" data-up><b>5+</b><span>Hackathons competed</span><small>Design, build, pitch</small></div>
+          <div class="win" data-up><b>3</b><span>Tech events organised</span><small>incl. IDEAFORGE ’26</small></div>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ 03 PROJECTS ============ -->
-    <section class="section" id="projects">
-      <div class="container">
-        <h2 class="title" data-reveal>Selected <em>work</em></h2>
-
-        <div class="bento">
-          <article class="cell cell--lg g-teal" data-tilt>
-            <div class="cell__text">
-              <span class="cell__tag">AI · HealthTech</span>
-              <h3>HealthMate AI</h3>
-              <p>Personal health OS — AI insights from medical reports, mapped onto an interactive 3D human atlas.</p>
-            </div>
-            <a class="shot" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" aria-label="Open HealthMate AI live site">
-              <span class="shot__bar"><i></i><i></i><i></i><em>health-mate-ai-nine.vercel.app</em></span>
-              <img src="img/healthmate.webp" alt="HealthMate AI landing page — Your Health. Connected &amp; Intelligent." width="1400" height="707" loading="lazy" />
-            </a>
-            <div class="cell__links">
-              <a href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="HealthMate AI on GitHub"><svg><use href="#i-gh"/></svg></a>
-              <a href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" aria-label="Open HealthMate AI"><svg><use href="#i-ext"/></svg></a>
-            </div>
-          </article>
-
-          <article class="cell cell--wide g-violet" data-tilt>
-            <div class="cell__text">
-              <span class="cell__tag">Conversational AI</span>
-              <h3>F1 AI Chatbot</h3>
-              <p>An LLM chatbot for Formula 1 that remembers the conversation.</p>
-            </div>
-            <div class="chat" aria-hidden="true">
-              <p class="msg me">Most wins at Monza?</p>
-              <p class="msg">Checking records<span class="dots"><i></i><i></i><i></i></span></p>
-            </div>
-            <div class="cell__links">
-              <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="F1 AI Chatbot on GitHub"><svg><use href="#i-gh"/></svg></a>
-            </div>
-          </article>
-
-          <article class="cell g-blue" data-tilt>
-            <div class="cell__text">
-              <span class="cell__tag">Full-stack</span>
-              <h3>IQAC / NBA Portal</h3>
-              <p>Role-based academic dashboards and reports.</p>
-            </div>
-            <div class="cell__links">
-              <a href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="IQAC portal on GitHub"><svg><use href="#i-gh"/></svg></a>
-              <a href="https://iqac-dep.vercel.app" target="_blank" rel="noopener" aria-label="Open IQAC portal"><svg><use href="#i-ext"/></svg></a>
-            </div>
-          </article>
-
-          <article class="cell g-indigo cell--self" data-tilt>
-            <span class="note" aria-hidden="true">TODO: add more projects (promise)</span>
-            <div class="cell__text">
-              <span class="cell__tag">Creative dev</span>
-              <h3>This Portfolio</h3>
-              <p>It's just my portfolio. Hand-built — HTML, CSS, GSAP.</p>
-            </div>
-            <div class="cell__links">
-              <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
-            </div>
-          </article>
-
-          <div class="cell cell--wide cell--stack" data-tilt>
-            <div class="cell__text">
-              <span class="cell__tag">Core stack</span>
-              <h3>What I build with</h3>
-            </div>
-            <ul class="mini-stack">
-              <li>Python</li><li>FastAPI</li><li>Next.js</li><li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li>LLM APIs</li>
-            </ul>
-          </div>
-
-          <a class="cell cell--wide cell--more" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" data-tilt>
-            <div class="cell__text">
-              <span class="cell__tag">Open source</span>
-              <h3>More on GitHub</h3>
-              <p>Experiments, hackathon builds and work in progress.</p>
-              <p class="repos"><span>health-mate-ai</span><i>·</i><span>iqac-dep</span></p>
-            </div>
-            <span class="more__icon"><svg><use href="#i-gh"/></svg></span>
-          </a>
+        <div class="kit">
+          <p class="head__k mono">Toolkit</p>
+          <ul class="kit__list" id="kit"></ul>
         </div>
       </div>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section class="section contact" id="contact">
-      <div class="container">
-        <div class="talk" data-reveal>
-          <h2 class="talk__title">Let's <em>talk.</em></h2>
-          <a class="talk__mail" href="mailto:sujan.swe17@gmail.com" aria-label="Email sujan.swe17@gmail.com"><span id="mailText">sujan.swe17@gmail.com</span><i class="talk__caret" aria-hidden="true"></i> <span class="arrow">→</span></a>
-          <ul class="talk__icons">
-            <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
-            <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
-            <li><button data-resume aria-label="Resume"><svg><use href="#i-doc"/></svg></button></li>
-          </ul>
-        </div>
+      <div class="wrap">
+        <p class="head__k mono">Contact</p>
+        <h2 class="contact__t"><span class="line"><span class="rise">Let's <em>talk.</em></span></span></h2>
+        <a class="contact__mail" href="mailto:sujan.swe17@gmail.com" data-cursor="Write" aria-label="Email sujan.swe17@gmail.com"><span id="mail">sujan.swe17@gmail.com</span><svg><use href="#i-arrow"/></svg></a>
+        <ul class="contact__links">
+          <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener"><svg><use href="#i-gh"/></svg>GitHub</a></li>
+          <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener"><svg><use href="#i-in"/></svg>LinkedIn</a></li>
+          <li><button data-resume>Résumé ↗</button></li>
+        </ul>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p class="wordmark" aria-hidden="true">sujan<span>.</span></p>
-    </div>
-    <div class="container footer__inner">
-      <span>© <span id="year">2026</span> Sujan S</span>
-      <span>Built with too much coffee</span>
+    <div class="wrap">
+      <p class="wordmark" aria-hidden="true">sujan<span></span></p>
+      <div class="footer__row mono"><span>© <span id="year">2026</span> Sujan S</span><span>Built by hand, with too much coffee</span></div>
     </div>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <!-- Resume modal -->
-  <div class="modal" id="resumeModal" role="dialog" aria-modal="true" aria-label="Resume" aria-hidden="true">
+  <div class="modal" id="resumeModal" role="dialog" aria-modal="true" aria-label="Résumé" aria-hidden="true">
     <div class="modal__backdrop" data-close></div>
     <div class="modal__panel">
       <div class="modal__bar">
-        <span>sujan.pdf</span>
+        <span class="mono">sujan.pdf</span>
         <div class="modal__actions">
-          <a class="btn btn--ghost btn--sm" href="sujan.pdf" target="_blank" rel="noopener">Open</a>
-          <a class="btn btn--primary btn--sm" href="sujan.pdf" download="Sujan_S_Resume.pdf">Download</a>
+          <a class="btn btn--line btn--sm" href="sujan.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="btn btn--accent btn--sm" href="sujan.pdf" download="Sujan_S_Resume.pdf">Download</a>
           <button class="modal__close" data-close aria-label="Close">✕</button>
         </div>
       </div>
-      <iframe id="resumeFrame" title="Sujan S resume"></iframe>
+      <iframe id="resumeFrame" title="Sujan S résumé"></iframe>
     </div>
   </div>
 
