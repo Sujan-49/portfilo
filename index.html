@@ -19,9 +19,9 @@
 </head>
 <body>
   <!-- Background -->
-  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+  <div class="mesh" aria-hidden="true"><span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span></div>
   <div class="grid-bg" aria-hidden="true"></div>
-  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
   <div class="glow" id="glow" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
@@ -37,7 +37,7 @@
   <!-- Nav -->
   <header class="nav" id="nav">
     <div class="nav__inner">
-      <a href="#top" class="nav__logo" data-scroll aria-label="Back to top">&lt;SS/&gt;</a>
+      <a href="#top" class="nav__logo" data-scroll aria-label="Sujan S — back to top">sujan<span>.</span></a>
       <nav class="nav__links" aria-label="Primary">
         <a href="#top" data-scroll>Home</a>
         <a href="#about" data-scroll>About Me</a>
@@ -73,24 +73,25 @@
     <section class="hero" id="home">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="hero__hello" data-hero>Hello there 👋</p>
-          <h1 class="hero__title" data-hero>I'm <span class="hl">Sujan</span></h1>
-          <p class="hero__role" data-hero>a <span class="hl hl--role"><span id="typed">AI Developer</span><i class="caret" aria-hidden="true"></i></span></p>
-          <p class="hero__sub" data-hero>
-            Software Engineer <i>|</i> AI Applications <i>|</i> Frontend Intern @ Pumo <i>|</i>
-            Hackathon Runner-up <i>|</i> Cyber Club Secretary
-          </p>
+          <h1 class="hero__name" data-hero>Sujan S</h1>
+          <p class="hero__line" data-hero>Building AI products that ship.</p>
+          <p class="hero__role" data-hero><span id="typed">AI Developer</span><i class="caret" aria-hidden="true"></i></p>
+          <ul class="pills" data-hero>
+            <li class="pill pill--ai">AI Applications</li>
+            <li class="pill">Full-Stack</li>
+            <li class="pill pill--ai">LLM Integration</li>
+            <li class="pill pill--ok"><span class="pulse"></span>Frontend Intern @ Pumo</li>
+          </ul>
           <div class="hero__cta" data-hero>
             <button class="btn btn--primary btn--lg" data-resume>Resume</button>
+            <a class="btn btn--ghost btn--lg" href="#projects" data-scroll>View work</a>
           </div>
         </div>
 
         <div class="hero__visual" data-hero>
           <div class="stage" id="stage">
             <span class="ficon f1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
-            <span class="ficon f2 back" title="Crown" aria-hidden="true">
-              <svg viewBox="0 0 24 24" class="crown"><path fill="#fbbf24" d="M3 7.5 7.5 11 12 4.5 16.5 11 21 7.5l-2 10.5H5Z"/><path fill="#f59e0b" d="M5 18h14v2H5z"/></svg>
-            </span>
+            <span class="ficon f2 back" title="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg" alt="" /></span>
             <button class="avatar" id="avatar" aria-label="Say hi">
               <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
             </button>
@@ -107,10 +108,13 @@
     <!-- ============ 01 ABOUT ============ -->
     <section class="section" id="about">
       <div class="container">
-        <h2 class="title" data-reveal><span class="num">01.</span> About Me</h2>
+        <h2 class="title" data-reveal>About Me</h2>
         <div class="about">
           <div class="about__photo" data-reveal>
-            <div class="frame"><img src="img/avatar.webp" alt="Sujan's avatar" loading="lazy" width="1171" height="1164" /></div>
+            <figure class="photo">
+              <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
+              <figcaption><span class="pulse"></span>Coimbatore, India</figcaption>
+            </figure>
           </div>
           <div class="about__text" data-reveal>
             <p>
@@ -138,7 +142,7 @@
     <!-- ============ 02 EXPERIENCE ============ -->
     <section class="section" id="experience">
       <div class="container">
-        <h2 class="title" data-reveal><span class="num">02.</span> My Experience</h2>
+        <h2 class="title" data-reveal>Experience</h2>
 
         <div class="exp" data-reveal>
           <div class="exp__side" role="tablist" aria-label="Roles">
@@ -200,91 +204,80 @@
     <!-- ============ 03 PROJECTS ============ -->
     <section class="section" id="projects">
       <div class="container">
-        <h2 class="title" data-reveal><span class="num">03.</span> Cool Projects</h2>
+        <h2 class="title" data-reveal>Selected Work</h2>
 
-        <div class="projects">
-          <article class="card card--big g-teal" data-reveal data-tilt>
-            <div class="card__text">
+        <div class="bento">
+          <article class="cell cell--lg g-teal" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">AI · HealthTech</span>
               <h3>HealthMate AI</h3>
-              <p>Your personal health OS — AI insights from medical reports, mapped onto a 3D human atlas.</p>
+              <p>Personal health OS — AI insights from medical reports, mapped onto an interactive 3D human atlas.</p>
             </div>
-            <div class="phone phone--lg" aria-hidden="true">
-              <div class="phone__screen">
-                <div class="ui-top"><i></i><b>HealthMate</b></div>
-                <div class="ui-atlas"><div class="ui-body"></div><span class="ui-pin p1"></span><span class="ui-pin p2"></span><span class="ui-pin p3"></span></div>
-                <div class="ui-row"><span>Report</span><b>Parsed</b></div>
-                <div class="ui-row"><span>Findings</span><b>3 linked</b></div>
-              </div>
-            </div>
-            <div class="card__links">
+            <a class="shot" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" aria-label="Open HealthMate AI live site">
+              <span class="shot__bar"><i></i><i></i><i></i><em>health-mate-ai-nine.vercel.app</em></span>
+              <img src="img/healthmate.webp" alt="HealthMate AI landing page — Your Health. Connected &amp; Intelligent." width="1400" height="707" loading="lazy" />
+            </a>
+            <div class="cell__links">
               <a href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="HealthMate AI on GitHub"><svg><use href="#i-gh"/></svg></a>
               <a href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener" aria-label="Open HealthMate AI"><svg><use href="#i-ext"/></svg></a>
             </div>
           </article>
 
-          <article class="card g-violet" data-reveal data-tilt>
-            <div class="card__text">
+          <article class="cell cell--wide g-violet" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">Conversational AI</span>
               <h3>F1 AI Chatbot</h3>
-              <p>Ask anything about Formula 1 — an LLM chatbot that remembers the conversation.</p>
+              <p>An LLM chatbot for Formula 1 that remembers the conversation.</p>
             </div>
-            <div class="phone" aria-hidden="true">
-              <div class="phone__screen">
-                <p class="msg me">Most wins at Monza?</p>
-                <p class="msg">Checking records<span class="dots"><i></i><i></i><i></i></span></p>
-                <p class="msg me">Hybrid era?</p>
-              </div>
+            <div class="chat" aria-hidden="true">
+              <p class="msg me">Most wins at Monza?</p>
+              <p class="msg">Checking records<span class="dots"><i></i><i></i><i></i></span></p>
             </div>
-            <div class="card__links">
+            <div class="cell__links">
               <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="F1 AI Chatbot on GitHub"><svg><use href="#i-gh"/></svg></a>
-              <span></span>
             </div>
           </article>
 
-          <article class="card g-blue" data-reveal data-tilt>
-            <div class="card__text">
+          <article class="cell g-blue" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">Full-stack</span>
               <h3>IQAC / NBA Portal</h3>
-              <p>Role-based academic dashboards, marks workflows and IQAC / NBA reports.</p>
+              <p>Role-based academic dashboards and reports.</p>
             </div>
-            <div class="phone" aria-hidden="true">
-              <div class="phone__screen">
-                <div class="ui-top"><i></i><b>IQAC</b></div>
-                <div class="ui-bars"><i style="--h:60%"></i><i style="--h:85%"></i><i style="--h:45%"></i><i style="--h:70%"></i><i style="--h:92%"></i></div>
-                <div class="ui-row"><span>Batch</span><b>2024</b></div>
-                <div class="ui-row"><span>Dept</span><b>IT</b></div>
-              </div>
-            </div>
-            <div class="card__links">
+            <div class="cell__links">
               <a href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="IQAC portal on GitHub"><svg><use href="#i-gh"/></svg></a>
               <a href="https://iqac-dep.vercel.app" target="_blank" rel="noopener" aria-label="Open IQAC portal"><svg><use href="#i-ext"/></svg></a>
             </div>
           </article>
 
-          <article class="card g-indigo" data-reveal data-tilt>
-            <div class="card__text">
+          <article class="cell g-indigo" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">Creative dev</span>
               <h3>This Portfolio</h3>
-              <p>Hand-built with HTML, CSS, GSAP and a canvas starfield — no frameworks.</p>
+              <p>Hand-built — HTML, CSS, GSAP. No framework.</p>
             </div>
-            <div class="phone" aria-hidden="true">
-              <div class="phone__screen phone__screen--code">
-<pre><span class="k">const</span> me = {
-  name: <span class="s">"Sujan"</span>,
-  ships: <span class="k">true</span>,
-};</pre>
-              </div>
-            </div>
-            <div class="card__links">
+            <div class="cell__links">
               <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
-              <span></span>
             </div>
           </article>
 
-          <a class="card card--more" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" data-reveal data-tilt>
-            <div class="card__text">
+          <div class="cell cell--wide cell--stack" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">Core stack</span>
+              <h3>What I build with</h3>
+            </div>
+            <ul class="mini-stack">
+              <li>Python</li><li>FastAPI</li><li>Next.js</li><li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li>LLM APIs</li>
+            </ul>
+          </div>
+
+          <a class="cell cell--wide cell--more" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" data-tilt>
+            <div class="cell__text">
+              <span class="cell__tag">Open source</span>
               <h3>More on GitHub</h3>
               <p>Experiments, hackathon builds and work in progress.</p>
             </div>
             <span class="more__icon"><svg><use href="#i-gh"/></svg></span>
-            <div class="card__links"><span></span><svg class="ext"><use href="#i-ext"/></svg></div>
           </a>
         </div>
       </div>
@@ -295,7 +288,7 @@
       <div class="container">
         <div class="touch" data-reveal>
           <div>
-            <p class="touch__kicker">What's Next?</p>
+            <p class="touch__kicker">What's next?</p>
             <h2>Get In Touch</h2>
             <p>Whether you have a question, an internship opportunity or just want to say hi, I'll try my best to get back to you!</p>
             <a class="btn btn--primary" href="mailto:sujan.swe17@gmail.com">Say Hello</a>
@@ -335,7 +328,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="js/stars.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

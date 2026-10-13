@@ -1,4 +1,4 @@
-/* Smooth scroll, reveals, typewriter, avatar tilt, role tabs, 3D skill cloud, card tilt, resume modal. */
+/* Smooth scroll, reveals, typewriter, avatar tilt, role tabs, 3D skill globe, bento tilt, cursor, resume modal. */
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -15,7 +15,7 @@
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    lenis = new Lenis({ duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     if (hasGSAP) {
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -49,7 +49,7 @@
         gsap.from(el, { x: -20, opacity: 0, duration: 0.5, ease: "power2.out", clearProps: "transform",
           scrollTrigger: { trigger: el, start: "top 88%", once: true, onEnter: () => el.classList.add("is-in") } });
       });
-      [".wins .win", ".projects .card", ".exp__side .role-card"].forEach((sel) => {
+      [".wins .win", ".bento .cell", ".exp__side .role-card"].forEach((sel) => {
         const items = $$(sel);
         items.forEach((el) => el.removeAttribute("data-reveal"));
         gsap.set(items, { opacity: 0, y: 30 });
@@ -80,6 +80,7 @@
   let lastY = 0;
   window.addEventListener("scroll", () => {
     const y = window.scrollY;
+    nav.classList.toggle("is-scrolled", y > 20);
     if (!menu.classList.contains("is-open")) nav.classList.toggle("is-hidden", y > lastY && y > 480);
     lastY = y;
   }, { passive: true });
@@ -213,6 +214,24 @@
       });
       card.addEventListener("pointerleave", () => { card.style.transform = ""; });
     });
+  }
+
+  /* ---------- Custom cursor: dot + ring that grows over interactive elements ---------- */
+  if (fine && !reduce) {
+    const cur = $(".cursor"), dot = $(".cursor__dot"), ring = $(".cursor__ring");
+    document.documentElement.classList.add("has-cursor");
+    let mx = -100, my = -100, rx = mx, ry = my;
+    window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    document.addEventListener("pointerover", (e) => {
+      cur.classList.toggle("is-hover", !!e.target.closest("a, button, [data-tilt], .pill, .mini-stack li, .skills li"));
+    });
+    document.addEventListener("pointerleave", () => { mx = my = -100; });
+    (function loop() {
+      rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
+      dot.style.transform = `translate(${mx}px, ${my}px)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(loop);
+    })();
   }
 
   /* ---------- Mouse-following glow ---------- */
