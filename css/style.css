@@ -5,26 +5,26 @@
    ========================================================== */
 
 :root {
-  --bg: #0a0a1a;
-  --glass: rgba(255, 255, 255, 0.03);
-  --glass-2: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.08);
+  --bg: #080810;
+  --glass: rgba(17, 17, 40, 0.55);
+  --glass-2: rgba(22, 22, 58, 0.7);
+  --border: rgba(255, 255, 255, 0.06);
   --border-2: rgba(255, 255, 255, 0.14);
   --accent: #a855f7;          /* purple — main */
   --accent-2: #c084fc;
   --ai: #a855f7;
-  --ok: #a855f7;
-  --text: #ffffff;
+  --ok: #22c55e;
+  --text: #f0f0f5;
   --text-2: #d4d4e6;
-  --muted: #8888aa;
-  --faint: #5d5d7a;
+  --muted: #a0a0c0;
+  --faint: #5a5a7a;
 
   --sans: "Geist", "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
   --mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
   --display: "Clash Display", "Geist", system-ui, sans-serif;
   --container: 1120px;
   --gutter: clamp(20px, 5vw, 40px);
-  --section-y: clamp(64px, 8vw, 104px);
+  --section-y: clamp(84px, 10vw, 136px);
   --r: 24px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -424,7 +424,7 @@ a:hover .arrow { transform: translateX(4px); }
 .talk__mail {
   display: inline-flex; align-items: center; gap: 14px; margin-top: 40px;
   font-family: var(--display); font-size: clamp(26px, 4.4vw, 52px); font-weight: 500; letter-spacing: -0.03em;
-  color: #fff;
+  color: #f0f0f5;
   border-bottom: 1px solid rgba(168, 85, 247, 0.35); padding-bottom: 6px; transition: border-color 0.3s;
   max-width: 100%; overflow-wrap: anywhere;
 }
@@ -483,4 +483,107 @@ html.no-boot .boot { display: none; }
   .now li { grid-template-columns: 1fr; gap: 2px; }
   .cell--self { rotate: 1deg; scale: 1; }
   .note { right: 8px; }
+}
+
+/* ==========================================================
+   Motion layer: background, nav pill, small details
+   ========================================================== */
+.btn--primary { color: #080810; }
+.btn--primary:hover { color: #080810; }
+
+/* background: purple / pink / purple blobs, barely-there grid */
+.blob { opacity: 1; }
+.blob-1 { width: 700px; height: 700px; top: -15%; left: -10%; background: radial-gradient(circle, rgba(168, 85, 247, 0.1), transparent 70%); filter: blur(80px); animation: blob1 25s ease-in-out infinite; }
+.blob-2 { width: 550px; height: 550px; top: 35%; right: -12%; left: auto; bottom: auto; background: radial-gradient(circle, rgba(236, 72, 153, 0.07), transparent 70%); filter: blur(70px); animation: blob2 20s ease-in-out infinite; }
+.blob-3 { width: 500px; height: 500px; top: auto; bottom: -10%; left: 25%; background: radial-gradient(circle, rgba(168, 85, 247, 0.06), transparent 70%); filter: blur(60px); animation: blob3 30s ease-in-out infinite; }
+@keyframes blob1 { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(60px, 40px) scale(1.08); } 50% { transform: translate(-30px, 70px) scale(0.95); } 75% { transform: translate(40px, -30px) scale(1.05); } }
+@keyframes blob2 { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(-50px, -40px) scale(1.1); } 66% { transform: translate(30px, -70px) scale(0.9); } }
+@keyframes blob3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-70px, -50px) scale(1.12); } }
+.grid-bg {
+  background-image: linear-gradient(rgba(168, 85, 247, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: none; mask-image: none;
+}
+.glow { background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%); }
+
+/* scroll progress */
+.progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 200; pointer-events: none; }
+.progress span { display: block; height: 100%; background: linear-gradient(to right, #a855f7, #ec4899); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* nav: one pill that slides to the active link */
+.nav__links { position: relative; }
+.nav__links a { position: relative; z-index: 1; }
+.nav__links a.is-active { background: none; color: var(--text); }
+.nav__pill { position: absolute; top: 4px; left: 0; height: calc(100% - 8px); width: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.1); opacity: 0; transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1), width 0.5s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s; pointer-events: none; }
+.nav__pill.is-on { opacity: 1; }
+
+/* status dot is the one green thing on the page */
+.pill--ok .pulse, .photo figcaption .pulse { background: #22c55e; }
+
+/* currently rows */
+.now li { transition: background-color 0.3s; }
+.now li:hover { background: rgba(168, 85, 247, 0.04); }
+.now__arrow { display: inline-block; font-style: normal; transition: transform 0.3s var(--ease-out); }
+.now li:hover .now__arrow { transform: translateX(6px); }
+
+/* sticky note: yellow paper, gentle wobble */
+.note { background: #fef08a; color: #1a1a1a; transform-origin: top center; animation: wobble 4s ease-in-out infinite; }
+@keyframes wobble { 0%, 100% { rotate: 3deg; } 50% { rotate: 5deg; } }
+
+/* email: typed in, arrow pulses */
+.talk__mail { font-family: var(--mono); font-size: clamp(22px, 3.8vw, 48px); font-weight: 500; letter-spacing: -0.04em; }
+.talk__caret { display: inline-block; width: 0.08em; min-width: 2px; height: 0.9em; margin-left: 2px; vertical-align: -0.08em; background: var(--accent-2); animation: blink 1s step-end infinite; }
+.talk__mail .arrow { animation: arrowPulse 2s ease-in-out infinite; }
+@keyframes arrowPulse { 0%, 100% { transform: translateX(0); opacity: 0.7; } 50% { transform: translateX(8px); opacity: 1; } }
+
+/* ==========================================================
+   Italian layer — proportion, one serif accent, crafted motion
+   ========================================================== */
+:root { --serif: "Instrument Serif", "Times New Roman", serif; --ease-it: cubic-bezier(0.65, 0, 0.35, 1); --ease-rise: cubic-bezier(0.19, 1, 0.22, 1); }
+
+/* the only serif on the page: italic accents inside headings */
+em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.title em, .talk__title em { color: var(--accent-2); }
+.hero__line em { font-size: 1.12em; color: var(--text); }
+
+/* masthead: a quiet editorial line above the name */
+.masthead { display: flex; align-items: center; gap: 12px; margin: 0 0 26px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.masthead i { width: 18px; height: 1px; background: var(--border-2); }
+.masthead span:first-child { color: var(--muted); }
+
+/* name rises out of a mask */
+.hero__name { display: flex; flex-wrap: nowrap; gap: 0.22em; }
+.mask { display: inline-block; overflow: hidden; padding: 0.04em 0.02em 0.1em; margin: -0.04em -0.02em -0.1em; }
+.rise { display: inline-block; will-change: transform; }
+.title__text { display: inline; white-space: normal; }
+
+/* hierarchy: lede tighter, pills quieter */
+.hero__line { margin-top: 26px; font-size: clamp(21px, 2.2vw, 28px); font-weight: 400; color: var(--muted); }
+.pills { margin-top: 30px; }
+.pill { font-size: 12.5px; }
+
+/* section titles: larger, calmer, more air below */
+.title { font-size: clamp(34px, 4.4vw, 56px); margin-bottom: 52px; }
+.title::before { width: 8px; height: 8px; }
+
+/* photo curtain */
+.photo { clip-path: inset(0 0 0 0 round 24px); }
+html.js-motion .photo:not(.is-in) { clip-path: inset(100% 0 0 0 round 24px); }
+.photo { transition: clip-path 1.4s var(--ease-it); }
+html.js-motion .photo:not(.is-in) img { transform: scale(1.25); }
+.photo img { transition: transform 1.8s var(--ease-rise); }
+
+/* footer wordmark */
+.footer { padding-top: 40px; }
+.wordmark { margin: 0 0 28px; padding-bottom: 0.06em; font-family: var(--display); font-weight: 600; font-size: clamp(88px, 21vw, 300px); line-height: 0.9; letter-spacing: -0.05em; color: rgba(168, 85, 247, 0.05); -webkit-text-stroke: 1.5px rgba(168, 85, 247, 0.5); user-select: none; white-space: nowrap; overflow: hidden; }
+/* a round dot — the display face's period is square */
+.wordmark span { display: inline-block; width: 0.16em; height: 0.16em; margin-left: 0.04em; border-radius: 50%; background: var(--accent); color: transparent; -webkit-text-stroke: 0; overflow: hidden; vertical-align: baseline; box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+
+/* calmer card hover: lift via shadow, not colour shift */
+.cell:hover { box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(168, 85, 247, 0.18); }
+[data-magnetic] { will-change: transform; transition: transform 0.5s var(--ease-rise); }
+.masthead span { white-space: nowrap; }
+@media (max-width: 640px) {
+  .masthead { justify-content: flex-start; gap: 10px; font-size: 11px; }
+  .masthead span:first-child, .masthead i:first-of-type { display: none; }
 }

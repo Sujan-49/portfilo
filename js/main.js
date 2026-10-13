@@ -2,10 +2,9 @@
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  // Ambient motion (fades, typewriter, globe, smooth scroll) always runs.
-  // If the visitor's OS asks for reduced motion, the strongest effects (boot screen, tilt, parallax) stay off.
+  // The site is meant to move: every effect runs regardless of the OS animation setting.
   const reduce = false;
-  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const calm = false;
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const hasGSAP = typeof window.gsap !== "undefined";
 
@@ -42,17 +41,17 @@
       const render = () => { bootLog.innerHTML = html + '<span class="cur"></span>'; };
       const tick = () => {
         if (finished) return;
-        if (li >= lines.length) { setTimeout(finish, 350); return; }
+        if (li >= lines.length) { setTimeout(finish, 220); return; }
         const [text, ok] = lines[li];
         if (ci < text.length) {
           html += text[ci++].replace("<", "&lt;").replace(">", "&gt;");
           render();
-          setTimeout(tick, 16);
+          setTimeout(tick, 8);
         } else {
           html += (ok ? `<span class="ok">${ok}</span>` : "") + "\n";
           li++; ci = 0;
           render();
-          setTimeout(tick, 160);
+          setTimeout(tick, 90);
         }
       };
       tick();
@@ -64,7 +63,7 @@
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new Lenis({ duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     if (hasGSAP) {
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -92,25 +91,65 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.clearScrollMemory("manual");
     if (!reduce) {
-      const heroIn = gsap.timeline({ paused: true })
-        .from("[data-hero]", { y: 24, opacity: 0, duration: 0.7, ease: "power3.out", stagger: 0.12 })
-        .from(".ficon", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)", stagger: 0.08 }, "-=0.4");
-      gsap.set("[data-hero]", { opacity: 0 });
-      bootDone.then(() => { gsap.set("[data-hero]", { opacity: 1 }); heroIn.play(); });
-      $$(".title").forEach((el) => {
-        gsap.from(el, { x: -20, opacity: 0, duration: 0.5, ease: "power2.out", clearProps: "transform",
+      const heroIn = gsap.timeline({ paused: true, defaults: { ease: "expo.out" } })
+        .from(".hero__name .rise", { yPercent: 115, duration: 1.3, stagger: 0.08 })
+        .from("[data-hero]", { y: 24, opacity: 0, duration: 1, stagger: 0.1 }, 0.25)
+        .from(".hero__visual", { x: 50, scale: 0.92, opacity: 0, duration: 1.4, clearProps: "transform" }, 0.35)
+        .from(".ficon", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)", stagger: 0.08 }, 0.7);
+      gsap.set("[data-hero], .hero__visual", { opacity: 0 });
+      bootDone.then(() => { gsap.set("[data-hero], .hero__visual", { opacity: 1 }); heroIn.play(); });
+      $$(".title, .talk__title").forEach((el) => {
+        // wrap each word in a mask so it can rise into place (inside one span, so the flex dot/line stay put)
+        const inner = document.createElement("span"); inner.className = "title__text";
+        inner.append(...el.childNodes); el.appendChild(inner);
+        const wrapWord = (node) => {
+          const m = document.createElement("span"); m.className = "mask";
+          const r = document.createElement("span"); r.className = "rise";
+          m.appendChild(r);
+          return [m, r];
+        };
+        [...inner.childNodes].forEach((n) => {
+          if (n.nodeType === 1) {               // an element such as <em>: wrap it as one word
+            const [m, r] = wrapWord();
+            n.replaceWith(m); r.appendChild(n);
+            return;
+          }
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((p) => {
+            if (!p) return;
+            if (!p.trim()) { frag.appendChild(document.createTextNode(p)); return; }
+            const [m, r] = wrapWord();
+            r.textContent = p;
+            frag.appendChild(m);
+          });
+          n.replaceWith(frag);
+        });
+        el.removeAttribute("data-reveal");
+        gsap.from($$(".rise", el), { yPercent: 110, duration: 1.1, ease: "expo.out", stagger: 0.07,
           scrollTrigger: { trigger: el, start: "top 88%", once: true, onEnter: () => el.classList.add("is-in") } });
       });
-      [".wins .win", ".bento .cell", ".exp__side .role-card"].forEach((sel) => {
+      // photo: curtain wipe, image settles from a slight zoom
+      const photo = $("#photo");
+      if (photo) ScrollTrigger.create({ trigger: photo, start: "top 82%", once: true, onEnter: () => photo.classList.add("is-in") });
+      // footer wordmark drifts up into place
+      gsap.from(".wordmark", { yPercent: 30, ease: "none", scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom bottom", scrub: true } });
+      const groups = [
+        [".wins .win", { y: 30 }, 0.1],
+        [".exp__side .role-card", { y: 30 }, 0.1],
+        [".bento .cell", { y: 30, scale: 0.95 }, 0.08],
+        [".now li", { x: -20 }, 0.1],
+      ];
+      groups.forEach(([sel, from, stagger]) => {
         const items = $$(sel);
         items.forEach((el) => el.removeAttribute("data-reveal"));
-        gsap.set(items, { opacity: 0, y: 30 });
+        gsap.set(items, { opacity: 0, ...from });
         ScrollTrigger.batch(items, { start: "top 90%", once: true,
-          onEnter: (b) => gsap.to(b, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1, clearProps: "transform" }) });
+          onEnter: (b) => gsap.to(b, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.9, ease: "expo.out", stagger, clearProps: "transform,scale" }) });
       });
+      $(".now").removeAttribute("data-reveal");
       $$("[data-reveal]:not(.title)").forEach((el) => {
         gsap.from(el, {
-          y: 50, opacity: 0, duration: 0.7, ease: "power2.out", clearProps: "transform",
+          y: 32, opacity: 0, duration: 1.1, ease: "expo.out", clearProps: "transform",
           scrollTrigger: { trigger: el, start: "top 88%", once: true },
         });
       });
@@ -118,13 +157,25 @@
       if (!calm) gsap.fromTo(".hero__visual", { y: 0 }, { y: () => innerHeight * 0.15, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
       if (!calm) gsap.fromTo(".hero__copy", { y: 0, opacity: 1 }, { y: () => innerHeight * 0.05, opacity: 0.4, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
     }
+    gsap.to("#progressBar", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.4 } });
     $$(".nav__links a").forEach((a) => {
       const id = a.getAttribute("href");
       const sec = id === "#top" ? $(".hero") : $(id);
-      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 40%", end: "bottom 40%", onToggle: (s) => { if (s.isActive) $$(".nav__links a").forEach((x) => x.classList.toggle("is-active", x === a)); else a.classList.remove("is-active"); } });
+      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 40%", end: "bottom 40%", onToggle: (s) => { if (s.isActive) $$(".nav__links a").forEach((x) => x.classList.toggle("is-active", x === a)); else a.classList.remove("is-active"); movePill(); } });
     });
     window.addEventListener("load", () => ScrollTrigger.refresh());
   }
+
+  /* ---------- Nav: sliding active pill ---------- */
+  function movePill() {
+    const pill = $(".nav__pill"), on = $(".nav__links a.is-active");
+    if (!pill) return;
+    if (!on) { pill.classList.remove("is-on"); return; }
+    pill.style.width = on.offsetWidth + "px";
+    pill.style.transform = `translateX(${on.offsetLeft}px)`;
+    pill.classList.add("is-on");
+  }
+  window.addEventListener("resize", movePill);
 
   /* ---------- Nav ---------- */
   const nav = $("#nav"), burger = $("#burger"), menu = $("#menu");
@@ -261,8 +312,8 @@
         const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
         card.style.setProperty("--mx", (x + 0.5) * 100 + "%");
         card.style.setProperty("--my", (y + 0.5) * 100 + "%");
-        const k = card.classList.contains("cell") ? 8 : 6;
-        if (!calm) card.style.transform = `perspective(1000px) rotateY(${x * k}deg) rotateX(${y * -k}deg) scale(1.02)`;
+        const k = card.classList.contains("cell") ? 6 : 5;
+        card.style.transform = `perspective(1000px) rotateY(${x * k}deg) rotateX(${y * -k}deg) scale(1.01)`;
       });
       card.addEventListener("pointerleave", () => { card.style.transform = ""; });
     });
@@ -296,6 +347,38 @@
       glow.style.transform = `translate(${px - 300}px, ${py - 300}px)`;
       requestAnimationFrame(loop);
     })();
+  }
+
+  /* ---------- Masthead clock (IST) ---------- */
+  const clock = $("#clock");
+  if (clock) {
+    const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
+    const tickClock = () => { clock.textContent = fmt.format(new Date()) + " IST"; };
+    tickClock(); setInterval(tickClock, 20000);
+  }
+
+  /* ---------- Magnetic primary buttons ---------- */
+  if (fine) {
+    $$("[data-magnetic]").forEach((btn) => {
+      btn.addEventListener("pointermove", (e) => {
+        const r = btn.getBoundingClientRect();
+        btn.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.25}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
+      });
+      btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
+    });
+  }
+
+  /* ---------- Email types in ---------- */
+  const mailText = $("#mailText");
+  if (mailText) {
+    const full = mailText.textContent;
+    mailText.textContent = "";
+    new IntersectionObserver(([en], obs) => {
+      if (!en.isIntersecting) return;
+      obs.disconnect();
+      let i = 0;
+      const iv = setInterval(() => { mailText.textContent = full.slice(0, ++i); if (i >= full.length) clearInterval(iv); }, 50);
+    }, { threshold: 0.6 }).observe(mailText.parentElement);
   }
 
   /* ---------- Resume modal ---------- */

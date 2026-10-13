@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script>try { localStorage.removeItem("motion"); } catch (e) {}</script>
@@ -27,6 +27,7 @@
   <!-- Background -->
   <div class="mesh" aria-hidden="true"><span class="blob blob-1"></span><span class="blob blob-2"></span><span class="blob blob-3"></span></div>
   <div class="grid-bg" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
   <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
   <div class="glow" id="glow" aria-hidden="true"></div>
 
@@ -44,6 +45,7 @@
     <div class="nav__inner">
       <a href="#top" class="nav__logo" data-scroll aria-label="Sujan S — back to top">sujan<span>.</span></a>
       <nav class="nav__links" aria-label="Primary">
+        <span class="nav__pill" aria-hidden="true"></span>
         <a href="#top" data-scroll>Home</a>
         <a href="#about" data-scroll>About Me</a>
         <a href="#experience" data-scroll>Experience</a>
@@ -78,8 +80,9 @@
     <section class="hero" id="home">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <h1 class="hero__name" data-hero>Sujan S</h1>
-          <p class="hero__line" data-hero>Building AI products that ship.</p>
+          <p class="masthead" data-hero><span>Software Engineer</span><i></i><span>Coimbatore, IN</span><i></i><span id="clock">— IST</span></p>
+          <h1 class="hero__name" aria-label="Sujan S"><span class="mask"><span class="rise">Sujan</span></span> <span class="mask"><span class="rise">S</span></span></h1>
+          <p class="hero__line" data-hero>Building AI products <em>that ship.</em></p>
           <p class="hero__role" data-hero><span id="typed">AI Developer</span><i class="caret" aria-hidden="true"></i></p>
           <ul class="pills" data-hero>
             <li class="pill pill--ai">AI Applications</li>
@@ -88,12 +91,12 @@
             <li class="pill pill--ok"><span class="pulse"></span>Frontend Intern @ Pumo</li>
           </ul>
           <div class="hero__cta" data-hero>
-            <button class="btn btn--primary btn--lg" data-resume>Resume</button>
-            <a class="btn btn--ghost btn--lg" href="#projects" data-scroll>View work <span class="arrow">→</span></a>
+            <button class="btn btn--primary btn--lg" data-resume data-magnetic>Resume</button>
+            <a class="btn btn--ghost btn--lg" href="#projects" data-scroll>See what I've built <span class="arrow">→</span></a>
           </div>
         </div>
 
-        <div class="hero__visual" data-hero>
+        <div class="hero__visual">
           <div class="stage" id="stage">
             <span class="ficon f1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
             <span class="ficon f2 back" title="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-original.svg" alt="" /></span>
@@ -113,10 +116,10 @@
     <!-- ============ 01 ABOUT ============ -->
     <section class="section" id="about">
       <div class="container">
-        <h2 class="title" data-reveal>About Me</h2>
+        <h2 class="title" data-reveal>About <em>me</em></h2>
         <div class="about">
           <div class="about__photo" data-reveal>
-            <figure class="photo">
+            <figure class="photo" id="photo">
               <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
               <figcaption><span class="pulse"></span>Coimbatore, India</figcaption>
             </figure>
@@ -146,12 +149,12 @@
     <!-- ============ CURRENTLY ============ -->
     <section class="section section--tight" id="now">
       <div class="container">
-        <h2 class="title" data-reveal>Currently</h2>
+        <h2 class="title" data-reveal><em>Currently</em></h2>
         <ul class="now" data-reveal>
-          <li><span class="now__k">Interning</span><span class="now__v">at Pumo — frontend, mostly.</span></li>
-          <li><span class="now__k">Building</span><span class="now__v">HealthMate AI. The 3D human atlas still gets tweaked every week.</span></li>
-          <li><span class="now__k">Running</span><span class="now__v">the Cyber Club at PSG Polytechnic.</span></li>
-          <li><span class="now__k">Looking for</span><span class="now__v">SWE / AI-ML internships. <a class="link" href="#contact" data-scroll>Say hi</a>.</span></li>
+          <li><span class="now__k">Interning <i class="now__arrow">→</i></span><span class="now__v">at Pumo — frontend, mostly.</span></li>
+          <li><span class="now__k">Building <i class="now__arrow">→</i></span><span class="now__v">HealthMate AI. The 3D human atlas still gets tweaked every week.</span></li>
+          <li><span class="now__k">Running <i class="now__arrow">→</i></span><span class="now__v">the Cyber Club at PSG Polytechnic.</span></li>
+          <li><span class="now__k">Looking for <i class="now__arrow">→</i></span><span class="now__v">SWE / AI-ML internships. <a class="link" href="#contact" data-scroll>Say hi</a>.</span></li>
         </ul>
       </div>
     </section>
@@ -223,7 +226,7 @@
     <!-- ============ 03 PROJECTS ============ -->
     <section class="section" id="projects">
       <div class="container">
-        <h2 class="title" data-reveal>Selected Work</h2>
+        <h2 class="title" data-reveal>Selected <em>work</em></h2>
 
         <div class="bento">
           <article class="cell cell--lg g-teal" data-tilt>
@@ -308,8 +311,8 @@
     <section class="section contact" id="contact">
       <div class="container">
         <div class="talk" data-reveal>
-          <h2 class="talk__title">Let's talk.</h2>
-          <a class="talk__mail" href="mailto:sujan.swe17@gmail.com">sujan.swe17@gmail.com <span class="arrow">→</span></a>
+          <h2 class="talk__title">Let's <em>talk.</em></h2>
+          <a class="talk__mail" href="mailto:sujan.swe17@gmail.com" aria-label="Email sujan.swe17@gmail.com"><span id="mailText">sujan.swe17@gmail.com</span><i class="talk__caret" aria-hidden="true"></i> <span class="arrow">→</span></a>
           <ul class="talk__icons">
             <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
             <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
@@ -321,6 +324,9 @@
   </main>
 
   <footer class="footer">
+    <div class="container">
+      <p class="wordmark" aria-hidden="true">sujan<span>.</span></p>
+    </div>
     <div class="container footer__inner">
       <span>© <span id="year">2026</span> Sujan S</span>
       <span>Built with too much coffee</span>
