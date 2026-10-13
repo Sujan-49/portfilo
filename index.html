@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sujan S — Software Engineer · AI Applications</title>
+  <meta name="description" content="Sujan S — Software engineer building AI-powered, full-stack products. Python & FastAPI backends, Next.js interfaces, LLM integrations." />
+  <meta name="theme-color" content="#08111f" />
+  <meta property="og:title" content="Sujan S — Software Engineer · AI Applications" />
+  <meta property="og:description" content="Python & FastAPI backends, Next.js interfaces and LLM integrations — built end to end." />
+  <meta property="og:image" content="img/avatar.webp" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-family='monospace' font-weight='700' font-size='24' fill='%2338bdf8'%3E%3CS/%3E%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Background: slow aurora + sparse stars -->
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- Icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3.5 6.5 8.5 6 8.5-6"/></g></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8Z"/><path d="M14 2.5V8h5.5M8.5 13h7M8.5 17h5"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></g></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12Z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></g></symbol>
+  </svg>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo" data-scroll aria-label="Back to top">&lt;SS/&gt;</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about" data-scroll>About</a>
+        <a href="#experience" data-scroll>Experience</a>
+        <a href="#projects" data-scroll>Projects</a>
+        <a href="#stack" data-scroll>Stack</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="#contact" class="btn btn--primary btn--sm" data-scroll>Contact</a>
+        <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true">
+    <a href="#about" data-scroll>About</a>
+    <a href="#experience" data-scroll>Experience</a>
+    <a href="#projects" data-scroll>Projects</a>
+    <a href="#stack" data-scroll>Stack</a>
+    <a href="#contact" data-scroll>Contact</a>
+    <button class="btn btn--primary" data-resume>View Resume</button>
+  </div>
+
+  <!-- Social rail -->
+  <ul class="rail" aria-label="Social links">
+    <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
+    <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
+    <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
+    <li><button data-resume aria-label="Resume"><svg><use href="#i-doc"/></svg></button></li>
+  </ul>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="status" data-hero><span class="pulse"></span>Frontend Intern @ Pumo · Open to SWE &amp; AI/ML internships</p>
+          <p class="hero__hello" data-hero>Hello there <span class="wave">👋</span></p>
+          <h1 class="hero__title" data-hero>I'm <span class="hl">Sujan S</span></h1>
+          <p class="hero__role" data-hero>a <span class="hl hl--role"><span id="typed">Software Engineer</span><i class="caret" aria-hidden="true"></i></span></p>
+          <p class="hero__lede" data-hero>
+            I build AI-powered, full-stack products — Python &amp; FastAPI backends, Next.js interfaces
+            and LLM integrations, from database schema to the pixels users touch.
+          </p>
+          <div class="hero__cta" data-hero>
+            <button class="btn btn--primary" data-resume>Resume <svg class="ico"><use href="#i-doc"/></svg></button>
+            <a class="btn btn--ghost" href="#projects" data-scroll>View my work</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" data-hero>
+          <div class="stage" id="stage">
+            <div class="orbit" aria-hidden="true"></div>
+            <span class="chip-ico c1 back" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
+            <span class="chip-ico c2 back" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" /></span>
+            <button class="avatar" id="avatar" aria-label="Say hi">
+              <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
+            </button>
+            <span class="chip-ico c3 front" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/fastapi/fastapi-original.svg" alt="" /></span>
+            <span class="chip-ico c4 front" title="Next.js"><img class="inv" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" alt="" /></span>
+          </div>
+          <p class="bubble" id="bubble"></p>
+        </div>
+      </div>
+      <a class="cue" href="#about" data-scroll aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ 01 ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="title" data-reveal><span>01.</span> About Me</h2>
+        <div class="about">
+          <div class="about__text" data-reveal>
+            <p>
+              I'm a software engineering student at <b>PSG Polytechnic College</b> (Diploma in IT, CGPA 8.8 / 10)
+              and a <b>Frontend Intern at Pumo</b>. I like owning a product end to end — designing the data model,
+              building the API, wiring in an LLM where it genuinely helps, and shipping the interface.
+            </p>
+            <p>
+              My recent work spans health tech, conversational AI and academic reporting: from <a class="link" href="#projects" data-scroll>HealthMate AI</a>,
+              which turns medical reports into structured findings on a 3D human atlas, to a role-based portal for IQAC / NBA reporting.
+            </p>
+            <p>
+              I compete in hackathons — runner-up at Webtrix and 3rd at the RSRPTC state-level hackathon — and lead the Cyber Club
+              as Secretary, where I organised three technical events including the inter-polytechnic hackathon IDEAFORGE ’26.
+            </p>
+          </div>
+          <dl class="facts" data-reveal>
+            <div><dt>Focus</dt><dd>Backend · AI applications · Full-stack</dd></div>
+            <div><dt>Education</dt><dd>Diploma in IT · PSG Polytechnic · 2027</dd></div>
+            <div><dt>CGPA</dt><dd>8.8 / 10</dd></div>
+            <div><dt>Hackathons</dt><dd>5+ · Runner-up · 3rd place</dd></div>
+            <div><dt>Location</dt><dd>Coimbatore, India</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 EXPERIENCE ============ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <h2 class="title" data-reveal><span>02.</span> Experience</h2>
+
+        <div class="exp" data-reveal>
+          <div class="tabs" role="tablist" aria-label="Experience">
+            <button class="tab is-active" role="tab" aria-selected="true" data-tab="pumo">Pumo</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="cyber">Cyber Club</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="psg">PSG Polytechnic</button>
+            <span class="tabs__bar" aria-hidden="true"></span>
+          </div>
+          <div class="panels">
+            <article class="panel" id="tab-pumo" role="tabpanel">
+              <h3>Frontend Intern <span>@ Pumo</span></h3>
+              <p class="meta">May 2026 — Present</p>
+              <ul class="ticks"><li>Contributing to frontend development tasks as part of the engineering team.</li></ul>
+            </article>
+            <article class="panel" id="tab-cyber" role="tabpanel" hidden>
+              <h3>Secretary &amp; Main Head Student <span>@ Cyber Club</span></h3>
+              <p class="meta">PSG Polytechnic College · Ongoing</p>
+              <ul class="ticks">
+                <li>Lead student mentorship, peer learning and coordination of technical club activities.</li>
+                <li>Organised three technical events, including IDEAFORGE ’26 — an inter-polytechnic hackathon — owning planning, coordination and participant engagement.</li>
+              </ul>
+            </article>
+            <article class="panel" id="tab-psg" role="tabpanel" hidden>
+              <h3>Diploma in Information Technology <span>@ PSG Polytechnic</span></h3>
+              <p class="meta">Coimbatore · Expected 2027</p>
+              <ul class="ticks">
+                <li>CGPA 8.8 / 10.</li>
+                <li>Built three full-stack projects alongside coursework: HealthMate AI, an F1 AI chatbot and the IQAC / NBA academic portal.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="wins" data-stagger>
+          <div class="win"><b>2<sup>nd</sup></b><span>Webtrix Hackathon<small>Sugna Engineering College</small></span></div>
+          <div class="win"><b>3<sup>rd</sup></b><span>RSRPTC State-Level Hackathon<small>Polytechnic colleges, Tamil Nadu</small></span></div>
+          <div class="win"><b>5+</b><span>Hackathons competed<small>Design, build, pitch</small></span></div>
+          <div class="win"><b>3</b><span>Tech events organised<small>Incl. IDEAFORGE ’26</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 PROJECTS ============ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <h2 class="title" data-reveal><span>03.</span> Selected Work</h2>
+
+        <div class="work">
+          <article class="proj proj--feature" data-reveal data-spot>
+            <div class="proj__body">
+              <p class="proj__kicker">Featured · AI HealthTech</p>
+              <h3>HealthMate AI</h3>
+              <p class="proj__desc">A personal health OS. It reads medical reports, organises every record in one place, and lets you explore findings on an interactive 3D Human Atlas.</p>
+              <p class="proj__challenge"><b>Challenge —</b> turning unstructured reports into structured findings with Google Generative AI, persisting them in Supabase, and anchoring each to a region of a Three.js body model.</p>
+              <ul class="tags"><li>Next.js</li><li>TypeScript</li><li>Three.js</li><li>Supabase</li><li>Gemini</li></ul>
+              <div class="proj__links">
+                <a class="btn btn--ghost btn--sm" href="https://health-mate-ai-nine.vercel.app" target="_blank" rel="noopener">Live demo <svg class="ico"><use href="#i-arrow"/></svg></a>
+                <a class="icon-link" href="https://github.com/Sujan-49/health-mate-ai" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
+              </div>
+            </div>
+            <div class="proj__panel panel--teal">
+              <div class="hi"><span>Modules</span><b>6</b><small>overview, meds, appointments, care network, providers, emergency</small></div>
+              <div class="hi"><span>3D</span><b>Human Atlas</b><small>Three.js body model linked to findings</small></div>
+              <div class="hi"><span>AI</span><b>Report insights</b><small>Google Generative AI</small></div>
+              <div class="hi"><span>Data</span><b>Supabase</b><small>records &amp; storage</small></div>
+            </div>
+          </article>
+
+          <article class="proj" data-reveal data-spot>
+            <div class="proj__body">
+              <p class="proj__kicker">Conversational AI</p>
+              <h3>F1 AI Chatbot</h3>
+              <p class="proj__desc">Answers natural-language questions about Formula 1 using an LLM API.</p>
+              <p class="proj__challenge"><b>Challenge —</b> carrying conversation context across turns so follow-up questions resolve against earlier answers.</p>
+              <ul class="tags"><li>Python</li><li>LLM API</li><li>Prompt engineering</li></ul>
+              <div class="proj__links">
+                <a class="icon-link" href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj" data-reveal data-spot>
+            <div class="proj__body">
+              <p class="proj__kicker">Full-stack · EdTech</p>
+              <h3>IQAC / NBA Academic Portal</h3>
+              <p class="proj__desc">College portal with role-based dashboards for student and staff records, marks workflows, and performance &amp; admission analytics.</p>
+              <p class="proj__challenge"><b>Challenge —</b> modelling academic data so reports roll up at department, batch, teacher, student and subject level.</p>
+              <ul class="tags"><li>PHP</li><li>MySQL</li><li>JavaScript</li><li>HTML / CSS</li></ul>
+              <div class="proj__links">
+                <a class="btn btn--ghost btn--sm" href="https://iqac-dep.vercel.app" target="_blank" rel="noopener">Live demo <svg class="ico"><use href="#i-arrow"/></svg></a>
+                <a class="icon-link" href="https://github.com/Sujan-49/iqac-dep" target="_blank" rel="noopener" aria-label="Source on GitHub"><svg><use href="#i-gh"/></svg></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 STACK ============ -->
+    <section class="section" id="stack">
+      <div class="container">
+        <h2 class="title" data-reveal><span>04.</span> Tech Stack</h2>
+        <div class="stack" data-stagger id="stackGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 05 LEADERSHIP ============ -->
+    <section class="section" id="leadership">
+      <div class="container">
+        <h2 class="title" data-reveal><span>05.</span> Leadership &amp; Certifications</h2>
+        <div class="lead" data-stagger>
+          <div class="row"><span class="row__ico"><svg><use href="#i-shield"/></svg></span><div><h3>Secretary &amp; Main Head Student — Cyber Club</h3><p>Lead student mentorship, peer learning and coordination of technical activities.</p></div></div>
+          <div class="row"><span class="row__ico"><svg><use href="#i-bolt"/></svg></span><div><h3>Organiser — IDEAFORGE ’26</h3><p>Ran an inter-polytechnic hackathon: planning, coordination and participant engagement.</p></div></div>
+          <div class="row"><span class="row__ico"><svg><use href="#i-users"/></svg></span><div><h3>Technical Event Organizer</h3><p>Organised three technical events for the student community.</p></div></div>
+        </div>
+        <div class="certs" data-stagger>
+          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /><div><b>Python</b><span>HackerRank</span></div></div>
+          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" alt="" /><div><b>JavaScript</b><span>HackerRank</span></div></div>
+          <div class="cert"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" /><div><b>Web Design</b><span>freeCodeCamp</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact__card" data-reveal>
+          <p class="contact__kicker">06. What's next?</p>
+          <h2>Get In Touch</h2>
+          <p>I'm looking for SWE and AI/ML internship opportunities. If you're hiring or building something interesting, my inbox is open.</p>
+          <div class="contact__cta">
+            <a class="btn btn--primary" href="mailto:sujan.swe17@gmail.com">Say hello <svg class="ico"><use href="#i-mail"/></svg></a>
+            <button class="btn btn--ghost" data-resume>View resume</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year">2026</span> Sujan S</span>
+      <ul class="footer__social">
+        <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a></li>
+        <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
+        <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
+      </ul>
+      <span>Built with HTML, CSS &amp; GSAP · <a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener">Source</a></span>
+    </div>
+  </footer>
+
+  <!-- Resume modal -->
+  <div class="modal" id="resumeModal" role="dialog" aria-modal="true" aria-label="Resume" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel">
+      <div class="modal__bar">
+        <span>sujan.pdf</span>
+        <div class="modal__actions">
+          <a class="btn btn--ghost btn--sm" href="sujan.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="btn btn--primary btn--sm" href="sujan.pdf" download="Sujan_S_Resume.pdf">Download</a>
+          <button class="modal__close" data-close aria-label="Close">✕</button>
+        </div>
+      </div>
+      <iframe id="resumeFrame" title="Sujan S resume"></iframe>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/stars.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
