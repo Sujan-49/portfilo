@@ -5,45 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sujan S — Software Engineer, AI Applications</title>
   <meta name="description" content="Sujan S builds AI-powered, full-stack products — Python & FastAPI backends, Next.js interfaces, LLM integrations." />
-  <meta name="theme-color" content="#0a0a0b" />
+  <meta name="theme-color" content="#f3eee4" />
   <meta property="og:title" content="Sujan S — Software Engineer, AI Applications" />
   <meta property="og:description" content="Building AI products that ship." />
   <meta property="og:image" content="img/avatar.webp" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d4ff3a'/%3E%3Ctext x='50%25' y='66%25' text-anchor='middle' font-family='Arial' font-weight='900' font-size='34' fill='%230a0a0b'%3Es%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2323392c'/%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23b08d57' stroke-width='1.5'/%3E%3Ctext x='50%25' y='61%25' text-anchor='middle' font-family='Didot,Georgia,serif' font-size='24' fill='%23f3eee4'%3ESS%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
   <!-- ambient -->
   <div class="grain" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><b class="cursor__label"></b></span></div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></symbol>
     <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6 8.5-6"/></g></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
   </svg>
 
+  <!-- ============ SIDEBAR ============ -->
+  <ul class="side" aria-label="Social links">
+    <li><a href="https://github.com/Sujan-ftw" target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub"><svg><use href="#i-gh"/></svg></a></li>
+    <li><a href="https://linkedin.com/in/sujan17" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><svg><use href="#i-in"/></svg></a></li>
+    <li><a href="mailto:sujan.swe17@gmail.com" aria-label="Email sujan.swe17@gmail.com" data-tip="Gmail"><svg><use href="#i-mail"/></svg></a></li>
+  </ul>
+
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__brand" data-scroll aria-label="Sujan S — back to top"><span class="nav__mark">s</span><span class="nav__name">Sujan S</span></a>
+    <a href="#top" class="nav__brand" data-scroll aria-label="Sujan S — back to top"><span class="nav__mark">SS</span><span class="nav__name">Sujan S</span></a>
     <nav class="nav__links" aria-label="Primary">
       <span class="nav__pill" aria-hidden="true"></span>
-      <a href="#work" data-scroll>Work</a>
       <a href="#about" data-scroll>About</a>
+      <a href="#work" data-scroll>Work</a>
       <a href="#experience" data-scroll>Experience</a>
       <a href="#contact" data-scroll>Contact</a>
     </nav>
-    <button class="nav__cv" data-resume>Résumé <svg><use href="#i-arrow"/></svg></button>
+    <div class="nav__right">
+      <button class="nav__theme" id="themeToggle" aria-label="Switch to the night theme" title="Day / Night">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="nav__cv" data-resume>Résumé <svg><use href="#i-arrow"/></svg></button>
+    </div>
     <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
   </header>
   <div class="menu" id="menu" aria-hidden="true">
-    <a href="#work" data-scroll>Work</a>
     <a href="#about" data-scroll>About</a>
+    <a href="#work" data-scroll>Work</a>
     <a href="#experience" data-scroll>Experience</a>
     <a href="#contact" data-scroll>Contact</a>
     <button data-resume>Résumé ↗</button>
@@ -53,32 +69,44 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <canvas class="field" id="field" aria-hidden="true"></canvas>
+      <div class="floor" aria-hidden="true"></div>
       <div class="wrap hero__inner">
-        <p class="hero__meta" data-in>
+        <div class="hero__copy">
+          <p class="hero__meta" data-in>
           <span class="dot-live"></span>Open to SWE / AI-ML internships
           <span class="sep"></span>Coimbatore, IN <span id="clock" class="mono"></span>
         </p>
 
-        <h1 class="hero__title" aria-label="Building AI products that ship.">
-          <span class="line"><span class="rise">Building AI</span></span>
-          <span class="line"><span class="rise">products <em>that ship.</em></span></span>
-        </h1>
+          <h1 class="hero__title" aria-label="Sujan S — software engineer building AI products">
+            <span class="t-night"><span class="line"><span class="rise">Building AI</span></span><span class="line"><span class="rise">products <em>that ship.</em></span></span></span>
+            <span class="t-day"><span class="line"><span class="rise">Hi, I'm Sujan.</span></span>
+            <span class="line"><span class="rise">I make <em>AI useful.<svg class="flourish" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 6, 120 4, 170 10 S 260 20, 296 8" pathLength="1"/></svg></em></span></span></span>
+          </h1>
+          <p class="hero__role" aria-hidden="true"><span class="hero__prompt">&gt;</span><span id="role">software engineer</span><span class="hero__caret"></span></p>
 
-        <div class="hero__bottom">
           <div class="hero__intro" data-in>
-            <p>I'm <b>Sujan</b> — a software engineer working on AI applications. Python &amp; FastAPI backends, Next.js interfaces, and the LLM wiring in between.</p>
+            <p>A software engineer working on <b>AI applications</b> — Python &amp; FastAPI backends, Next.js interfaces, and the LLM wiring in between.</p>
             <div class="hero__cta">
               <a class="btn btn--accent" href="#work" data-scroll data-magnetic>See the work <svg><use href="#i-arrow"/></svg></a>
               <button class="btn btn--line" data-resume data-magnetic>Résumé</button>
             </div>
           </div>
-
-          <figure class="avatar" id="avatar" data-in>
-            <div class="avatar__card" id="avatarCard">
-              <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
-            </div>
-          </figure>
         </div>
+
+        <figure class="avatar" id="avatar" data-in>
+          <div class="avatar__stage">
+            <div class="orbit" aria-hidden="true">
+                <span class="orbit-ico" style="--a: 30deg" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/python/python-original.svg" alt="" /></span>
+                <span class="orbit-ico" style="--a: 150deg" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" /></span>
+                <span class="orbit-ico" style="--a: 210deg" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/fastapi/fastapi-original.svg" alt="" /></span>
+                <span class="orbit-ico" style="--a: 330deg" title="Next.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" alt="" class="inv" /></span>
+              </div>
+            <button class="avatar__card" id="avatarCard" aria-label="Say hi">
+              <img src="img/avatar.webp" alt="3D avatar of Sujan" width="1171" height="1164" />
+            </button>
+            <p class="bubble" id="bubble" aria-live="polite"></p>
+          </div>
+        </figure>
 
         <dl class="stats" data-in>
           <div><dt>CGPA</dt><dd><span data-count="8.8" data-dec="1">8.8</span></dd></div>
@@ -87,22 +115,52 @@
           <div><dt>Projects shipped</dt><dd><span data-count="3">3</span></dd></div>
         </dl>
       </div>
+      <span class="scroll-hint" aria-hidden="true"></span>
     </section>
 
     <!-- ============ BAND ============ -->
     <div class="band" aria-hidden="true"><div class="band__track" id="band"></div></div>
 
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="wrap about__grid">
+        <div class="about__media">
+          <figure class="photo" id="photo">
+            <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
+          </figure>
+          <p class="caption"><em>Fig. I</em><span>By the sea, golden hour</span></p>
+        </div>
+        <div class="about__text">
+          <header class="head head--tight">
+            <p class="head__k mono"><span class="folio">N° 01</span>About</p>
+            <h2 class="head__t"><span class="line"><span class="rise">I build <em>stuff.</em></span></span></h2>
+          </header>
+          <p data-up>I just finished a six-week frontend internship at Pumo, where my job was making sure the UI didn't look broken. I'm studying IT at PSG Polytechnic in Coimbatore — 8.8 CGPA, done in 2027.</p>
+          <p data-up>Before that I built HealthMate AI, a health app with a 3D human body you can click around, mostly to see if I could. Also an academic portal for IQAC / NBA reporting, and an F1 chatbot — because F1.</p>
+          <p data-up>Hackathons: runner-up at Webtrix, 3rd at RSRPTC. As Cyber Club secretary I organised IDEAFORGE ’26, which turned out to be a lot more spreadsheets than code.</p>
+
+          <ul class="now" data-up>
+            <li><span class="mono">now</span>Looking for SWE / AI-ML internships</li>
+            <li><span class="mono">building</span>HealthMate AI — the 3D atlas still gets tweaked every week</li>
+            <li><span class="mono">running</span>the Cyber Club at PSG Polytechnic</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="orn wrap" aria-hidden="true"><span></span><i>✦</i><span></span></div>
+
     <!-- ============ WORK ============ -->
     <section class="section work" id="work">
       <div class="wrap">
         <header class="head">
-          <p class="head__k mono">Selected work</p>
+          <p class="head__k mono"><span class="folio">N° 02</span>Selected work</p>
           <h2 class="head__t"><span class="line"><span class="rise">Things I've <em>built.</em></span></span></h2>
         </header>
 
         <div class="cases">
           <!-- HealthMate -->
-          <article class="case" style="--tint: 52, 211, 153">
+          <article class="case" style="--tint: 150, 178, 138">
             <div class="case__info">
               <p class="case__idx mono">01 / AI · HealthTech</p>
               <h3 class="case__title">HealthMate AI</h3>
@@ -123,7 +181,7 @@
           </article>
 
           <!-- F1 -->
-          <article class="case" style="--tint: 255, 77, 61">
+          <article class="case" style="--tint: 128, 38, 48">
             <div class="case__info">
               <p class="case__idx mono">02 / Conversational AI</p>
               <h3 class="case__title">F1 AI Chatbot</h3>
@@ -145,7 +203,7 @@
           </article>
 
           <!-- IQAC -->
-          <article class="case" style="--tint: 91, 140, 255">
+          <article class="case" style="--tint: 110, 140, 200">
             <div class="case__info">
               <p class="case__idx mono">03 / Full-stack · EdTech</p>
               <h3 class="case__title">IQAC / NBA Portal</h3>
@@ -166,7 +224,7 @@
           </article>
 
           <!-- Portfolio -->
-          <article class="case case--self" style="--tint: 212, 255, 58">
+          <article class="case case--self" style="--tint: 214, 170, 96">
             <div class="case__info">
               <p class="case__idx mono">04 / Creative dev</p>
               <h3 class="case__title">This portfolio</h3>
@@ -185,35 +243,13 @@
       </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
-    <section class="section about" id="about">
-      <div class="wrap about__grid">
-        <figure class="photo" id="photo">
-          <img src="img/sujan-beach.webp" alt="Sujan at the beach at sunset" width="750" height="1000" loading="lazy" />
-        </figure>
-        <div class="about__text">
-          <header class="head head--tight">
-            <p class="head__k mono">About</p>
-            <h2 class="head__t"><span class="line"><span class="rise">I build <em>stuff.</em></span></span></h2>
-          </header>
-          <p data-up>I just finished a six-week frontend internship at Pumo, where my job was making sure the UI didn't look broken. I'm studying IT at PSG Polytechnic in Coimbatore — 8.8 CGPA, done in 2027.</p>
-          <p data-up>Before that I built HealthMate AI, a health app with a 3D human body you can click around, mostly to see if I could. Also an academic portal for IQAC / NBA reporting, and an F1 chatbot — because F1.</p>
-          <p data-up>Hackathons: runner-up at Webtrix, 3rd at RSRPTC. As Cyber Club secretary I organised IDEAFORGE ’26, which turned out to be a lot more spreadsheets than code.</p>
-
-          <ul class="now" data-up>
-            <li><span class="mono">now</span>Looking for SWE / AI-ML internships</li>
-            <li><span class="mono">building</span>HealthMate AI — the 3D atlas still gets tweaked every week</li>
-            <li><span class="mono">running</span>the Cyber Club at PSG Polytechnic</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    <div class="orn wrap" aria-hidden="true"><span></span><i>✦</i><span></span></div>
 
     <!-- ============ EXPERIENCE ============ -->
     <section class="section xp" id="experience">
       <div class="wrap">
         <header class="head">
-          <p class="head__k mono">Experience</p>
+          <p class="head__k mono"><span class="folio">N° 03</span>Experience</p>
           <h2 class="head__t"><span class="line"><span class="rise">Where I've <em>been.</em></span></span></h2>
         </header>
 
@@ -243,16 +279,21 @@
         </div>
 
         <div class="kit">
-          <p class="head__k mono">Toolkit</p>
-          <ul class="kit__list" id="kit"></ul>
+          <p class="head__k mono"><span class="folio">N° 04</span>Toolkit</p>
+          <div class="kit__grid">
+            <div class="globe-wrap"><div class="globe" id="globe" aria-label="Skills globe"></div><p class="caption caption--center"><em>Fig. II</em><span>The everyday stack</span></p></div>
+            <ul class="kit__list" id="kit"></ul>
+          </div>
         </div>
       </div>
     </section>
 
+    <div class="orn wrap" aria-hidden="true"><span></span><i>✦</i><span></span></div>
+
     <!-- ============ CONTACT ============ -->
     <section class="section contact" id="contact">
       <div class="wrap">
-        <p class="head__k mono">Contact</p>
+        <p class="head__k mono"><span class="folio">N° 05</span>Contact</p>
         <h2 class="contact__t"><span class="line"><span class="rise">Let's <em>talk.</em></span></span></h2>
         <a class="contact__mail" href="mailto:sujan.swe17@gmail.com" data-cursor="Write" aria-label="Email sujan.swe17@gmail.com"><span id="mail">sujan.swe17@gmail.com</span><svg><use href="#i-arrow"/></svg></a>
         <ul class="contact__links">
@@ -267,7 +308,7 @@
   <footer class="footer">
     <div class="wrap">
       <p class="wordmark" aria-hidden="true">sujan<span></span></p>
-      <div class="footer__row mono"><span>© <span id="year">2026</span> Sujan S</span><span>Built by hand, with too much coffee</span></div>
+      <div class="footer__row mono"><span>© <span id="year">2026</span> Sujan S</span><span>Coimbatore · Est. MMXXVI</span><span>Built by hand, with too much coffee</span></div>
     </div>
   </footer>
 

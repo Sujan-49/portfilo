@@ -16,7 +16,7 @@
   /* ================= smooth scroll ================= */
   let lenis = null;
   if (window.Lenis) {
-    lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1, smoothWheel: true });
     if (hasGSAP) {
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -40,12 +40,15 @@
 
   /* ================= nav ================= */
   const nav = $("#nav"), burger = $("#burger"), menu = $("#menu");
-  let lastY = 0;
+  let lastY = 0, idleT;
   window.addEventListener("scroll", () => {
     const y = scrollY;
     if (!menu.classList.contains("is-open")) nav.classList.toggle("is-hidden", y > lastY + 4 && y > 600);
     if (y < lastY - 4) nav.classList.remove("is-hidden");
     lastY = y;
+    nav.classList.remove("is-idle");
+    clearTimeout(idleT);
+    if (y > 300) idleT = setTimeout(() => nav.classList.add("is-idle"), 1600);
   }, { passive: true });
   function closeMenu() {
     menu.classList.remove("is-open");
@@ -88,7 +91,9 @@
     fx.setTransform(dpr, 0, 0, dpr, 0, 0);
     gap = fw < 700 ? 22 : 26;
     dots = [];
-    for (let y = gap / 2; y < fh; y += gap) for (let x = gap / 2; x < fw; x += gap) dots.push(x, y);
+    const night = root.dataset.theme === "dark";
+    let row = 0;
+    for (let y = gap / 2; y < fh; y += gap, row++) for (let x = gap / 2 + (night && row % 2 ? gap / 2 : 0); x < fw; x += gap) dots.push(x, y);
   }
   buildField();
   window.addEventListener("resize", () => { clearTimeout(buildField.t); buildField.t = setTimeout(buildField, 150); });
@@ -99,6 +104,13 @@
   hero.addEventListener("pointerleave", () => { mouse.active = false; });
   new IntersectionObserver(([en]) => { fieldOn = en.isIntersecting; }).observe(hero);
   const R = 170;
+  let dotRGB = "35, 30, 24", hotRGB = "110, 31, 42";
+  const readFieldColors = () => {
+    const cs = getComputedStyle(root);
+    dotRGB = cs.getPropertyValue("--field-dot").trim() || dotRGB;
+    hotRGB = cs.getPropertyValue("--field-hot").trim() || hotRGB;
+  };
+  readFieldColors();
   (function drawField(t) {
     requestAnimationFrame(drawField);
     if (!fieldOn || document.hidden) return;
@@ -111,6 +123,7 @@
     mouse.x += (mouse.tx - mouse.x) * 0.08;
     mouse.y += (mouse.ty - mouse.y) * 0.08;
     fx.clearRect(0, 0, fw, fh);
+    const night = root.dataset.theme === "dark";
     for (let i = 0; i < dots.length; i += 2) {
       const x = dots[i], y = dots[i + 1];
       const wave = Math.sin(x * 0.012 + time * 0.9) * Math.cos(y * 0.016 - time * 0.6);
@@ -122,12 +135,55 @@
       const px = x - dx * k * 0.18, py = y - dy * k * 0.18;
       const size = 1.5 + wave * 0.45 + k * 3;
       if (k > 0.02) {
-        fx.fillStyle = `rgba(212, 255, 58, ${0.3 + k * 0.7})`;
+        fx.fillStyle = `rgba(${hotRGB}, ${0.25 + k * 0.6})`;
       } else {
-        fx.fillStyle = `rgba(242, 242, 238, ${0.1 + (wave + 1) * 0.07})`;
+        fx.fillStyle = `rgba(${dotRGB}, ${0.06 + (wave + 1) * 0.045})`;
       }
-      fx.fillRect(px - size / 2, py - size / 2, size, size);
+      if (night) {
+        fx.beginPath(); fx.arc(px, py, size * 0.6, 0, Math.PI * 2); fx.fill();
+      } else {
+        fx.fillRect(px - size / 2, py - size / 2, size, size);
+      }
     }
+  })();
+
+  /* ================= theme toggle ================= */
+  const themeBtn = $("#themeToggle");
+  const setThemeLabel = () => {
+    const dark = root.dataset.theme === "dark";
+    themeBtn.setAttribute("aria-label", dark ? "Switch to the day theme" : "Switch to the night theme");
+  };
+  setThemeLabel();
+  themeBtn.addEventListener("click", () => {
+    root.classList.add("theme-anim");
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    setThemeLabel();
+    readFieldColors();
+    buildField();
+    paintGlobe();
+    setTimeout(() => root.classList.remove("theme-anim"), 700);
+  });
+
+  /* ================= card spotlight ================= */
+  $$(".case, .win").forEach((el) => el.addEventListener("pointermove", (e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", e.clientX - r.left + "px");
+    el.style.setProperty("--my", e.clientY - r.top + "px");
+  }));
+
+  /* ================= typed role ================= */
+  const roleEl = $("#role");
+  const ROLES = ["software engineer", "ai developer", "full-stack builder", "python + next.js", "hackathon runner-up"];
+  let ri = 0, ci = ROLES[0].length, del = true;
+  (function typeRole() {
+    const word = ROLES[ri];
+    ci += del ? -1 : 1;
+    roleEl.textContent = word.slice(0, ci);
+    let wait = del ? 40 : 85;
+    if (!del && ci === word.length) { del = true; wait = 1900; }
+    else if (del && ci === 0) { del = false; ri = (ri + 1) % ROLES.length; wait = 350; }
+    setTimeout(typeRole, wait);
   })();
 
   /* ================= kinetic band ================= */
@@ -159,8 +215,50 @@
     ["scikit-learn", "scikitlearn/scikitlearn-original"], ["Git", "git/git-original"], ["Linux", "linux/linux-original"], ["Vercel", "vercel/vercel-original", 1],
   ];
   $("#kit").innerHTML = kit.map(([n, ic, inv]) =>
-    `<li data-up>${ic ? `<img src="${DI}${ic}.svg" alt="" loading="lazy"${inv ? ' class="inv"' : ""} />` : '<i class="dot"></i>'}${n}</li>`).join("");
+    `<li>${ic ? `<img src="${DI}${ic}.svg" alt="" loading="lazy"${inv ? ' class="inv"' : ""} />` : '<i class="dot"></i>'}${n}</li>`).join("");
   $$("#kit img").forEach((img) => img.addEventListener("error", () => img.replaceWith(Object.assign(document.createElement("i"), { className: "dot" })), { once: true }));
+
+  /* ================= skill globe: three rings at different heights and speeds ================= */
+  const globe = $("#globe");
+  const SKILLS = ["Python", "FastAPI", "Next.js", "React", "TypeScript", "Supabase", "PostgreSQL", "MongoDB", "Node.js", "Express",
+    "Git", "AWS", "Flask", "Three.js", "CSS3", "HTML5", "Java", "MySQL", "LLMs", "Pandas"];
+  const gWords = SKILLS.map((name, i) => {
+    const ring = i % 3, el = document.createElement("span");
+    el.textContent = name;
+    el.style.fontSize = 17 + ring * 5 + "px";
+    el.style.fontStyle = ring === 1 ? "italic" : "normal";
+    globe.appendChild(el);
+    return { el, ring, i, speed: 1 + ring * 0.3 };
+  });
+  [0, 1, 2].forEach((ring) => {
+    const inRing = gWords.filter((w) => w.ring === ring);
+    inRing.forEach((w, k) => { w.offset = (k / inRing.length) * Math.PI * 2 + ring * 0.6; });
+  });
+  function paintGlobe() {
+    const cs = getComputedStyle(root);
+    const cols = [cs.getPropertyValue("--accent").trim(), cs.getPropertyValue("--text").trim(), cs.getPropertyValue("--gold").trim()];
+    gWords.forEach((w) => { w.el.style.color = cols[w.i % 3]; });
+  }
+  paintGlobe();
+  let gAngle = 0, globeOn = true;
+  new IntersectionObserver(([en]) => { globeOn = en.isIntersecting; }).observe(globe);
+  const drawGlobe = () => {
+    const size = globe.clientWidth;
+    for (const w of gWords) {
+      const radius = size * (0.22 + w.ring * 0.08);
+      const yOff = (w.ring - 1) * size * 0.24;
+      const a = (gAngle * w.speed * Math.PI) / 180 + w.offset;
+      const x = Math.cos(a) * radius, z = Math.sin(a) * radius;
+      const depth = (z + radius) / (2 * radius);
+      w.el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${yOff.toFixed(1)}px, ${z.toFixed(1)}px) scale(${(0.45 + depth * 0.75).toFixed(3)})`;
+      w.el.style.opacity = (0.15 + depth * 0.85).toFixed(2);
+      w.el.style.filter = depth < 0.55 ? `blur(${((1 - depth) * 1.4).toFixed(2)}px)` : "none";
+      w.el.style.zIndex = Math.round(depth * 100);
+    }
+  };
+  drawGlobe();
+  window.addEventListener("resize", drawGlobe);
+  (function spin() { requestAnimationFrame(spin); if (!globeOn) return; gAngle += 0.2; drawGlobe(); })();
 
   /* ================= motion ================= */
   if (hasGSAP) {
@@ -170,9 +268,12 @@
 
     // hero entrance
     gsap.timeline({ defaults: { ease: E }, delay: 0.15 })
-      .from(".hero__title .rise", { yPercent: 110, duration: 1.4, stagger: 0.1 })
+      .from(".hero__title .rise", { yPercent: 110, duration: 1.8, stagger: 0.14 })
       .from("[data-in]", { y: 24, opacity: 0, duration: 1.1, stagger: 0.08 }, 0.35)
-      .from(".avatar__card", { scale: 0.6, rotate: -8, duration: 1.4, ease: "back.out(1.4)" }, 0.5)
+      .from(".avatar__stage", { scale: 0.85, opacity: 0, rotate: -12, duration: 2 }, 0.5)
+      .from(".orbit-ico", { scale: 0, duration: 1, stagger: 0.12, ease: "back.out(2)", clearProps: "transform" }, 1.2)
+      .from(".hero__role", { y: 16, opacity: 0, duration: 1 }, 0.8)
+      .add(() => $$(".hero__title em").forEach((e) => e.classList.add("is-drawn")), 1.1)
       .from(".field", { opacity: 0, duration: 2, ease: "power2.out" }, 0);
 
     // headings rise out of their masks
@@ -180,6 +281,25 @@
       gsap.from($$(".rise", el), { yPercent: 110, duration: 1.2, ease: E, stagger: 0.08, scrollTrigger: { trigger: el, start: "top 86%", once: true } });
     });
     $$(".head__k").forEach((el) => gsap.from(el, { x: -16, opacity: 0, duration: 0.9, ease: E, scrollTrigger: { trigger: el, start: "top 90%", once: true } }));
+
+    // About: words light up as you read down the paragraph
+    $$(".about__text > p").forEach((p) => {
+      p.removeAttribute("data-up");
+      p.innerHTML = p.textContent.split(/(\s+)/).map((t) => (t.trim() ? `<span class="w">${t}</span>` : t)).join("");
+      gsap.to($$(".w", p), { opacity: 1, stagger: 0.05, ease: "none", scrollTrigger: { trigger: p, start: "top 85%", end: "bottom 55%", scrub: true } });
+    });
+    // photo drifts slower than the page
+    gsap.fromTo("#photo img", { yPercent: -8 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: "#photo", start: "top bottom", end: "bottom top", scrub: true } });
+    // experience rows slide in one after another
+    const rows = $$(".xp__row");
+    rows.forEach((r) => r.removeAttribute("data-up"));
+    gsap.from(rows, { x: -60, opacity: 0, duration: 1.1, ease: E, stagger: 0.14, scrollTrigger: { trigger: ".xp__list", start: "top 82%", once: true } });
+    // achievements pop
+    const wins = $$(".win");
+    wins.forEach((w) => w.removeAttribute("data-up"));
+    gsap.from(wins, { scale: 0.85, y: 30, opacity: 0, duration: 0.9, ease: "back.out(1.6)", stagger: 0.09, scrollTrigger: { trigger: ".wins", start: "top 85%", once: true } });
+    // sidebar slides in after the hero
+    gsap.from(".side", { x: -40, opacity: 0, duration: 1.2, ease: E, delay: 1.2 });
 
     // everything else fades up, in batches
     const ups = $$("[data-up]");
@@ -193,19 +313,13 @@
       gsap.to(o, { v: end, duration: 1.8, ease: "power3.out", delay: 0.9, onUpdate: () => { el.textContent = o.v.toFixed(dec); } });
     });
 
-    // case studies stack: earlier cards shrink and dim as the next slides over
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 1001px)", () => {
-      const cases = $$(".case");
-      cases.forEach((c, i) => {
-        gsap.from(c, { y: 80, opacity: 0, duration: 1.1, ease: E, scrollTrigger: { trigger: c, start: "top 92%", once: true } });
-        if (i === cases.length - 1) return;
-        gsap.to(c, { scale: 0.92 + i * 0.015, filter: "brightness(0.55)", ease: "none",
-          scrollTrigger: { trigger: cases[i + 1], start: "top bottom", end: "top 96px", scrub: true } });
-      });
-    });
-    mm.add("(max-width: 1000px)", () => {
-      $$(".case").forEach((c) => gsap.from(c, { y: 50, opacity: 0, duration: 1, ease: E, scrollTrigger: { trigger: c, start: "top 90%", once: true } }));
+    // projects arrive one by one, alternating from the left and the right
+    $$(".case").forEach((c, i) => {
+      const from = i % 2 ? 1 : -1;
+      const tl = gsap.timeline({ scrollTrigger: { trigger: c, start: "top 82%", once: true } });
+      tl.from(c, { x: from * 140, opacity: 0, duration: 1.1, ease: E })
+        .from(c.querySelectorAll(".case__info > *"), { x: from * 40, opacity: 0, duration: 0.8, ease: E, stagger: 0.07 }, 0.25)
+        .from(c.querySelector(".case__visual"), { opacity: 0, scale: 0.96, duration: 1, ease: E }, 0.35);
     });
 
     // IQAC bars grow when visible
@@ -221,6 +335,21 @@
     // footer wordmark rises into place
     gsap.from(".wordmark", { yPercent: 35, ease: "none", scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom bottom", scrub: true } });
 
+    // dividers draw out from the centre; their mark spins in
+    $$(".orn").forEach((o) => {
+      gsap.from($$("span", o), { scaleX: 0, ease: "none", scrollTrigger: { trigger: o, start: "top 96%", end: "top 60%", scrub: true } });
+      gsap.from($("i", o), { scale: 0, rotate: -180, duration: 1.1, ease: "back.out(2)", scrollTrigger: { trigger: o, start: "top 88%", once: true } });
+    });
+    gsap.to(".scroll-hint", { opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "15% top", scrub: true } });
+    // toolkit: globe spins up, chips cascade in
+    gsap.from(".globe", { scale: 0.55, opacity: 0, rotate: -40, duration: 1.6, ease: E, scrollTrigger: { trigger: ".kit__grid", start: "top 80%", once: true } });
+    gsap.from("#kit li", { y: 24, scale: 0.85, opacity: 0, duration: 0.7, ease: "back.out(1.8)", stagger: 0.035, scrollTrigger: { trigger: "#kit", start: "top 88%", once: true } });
+
+    // avatar floats up a little slower than the copy as you leave the hero
+    gsap.to("#avatar", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    // contact: the email line draws in under the headline
+    gsap.from(".contact__mail", { clipPath: "inset(0 100% 0 0)", duration: 1.4, ease: "power3.inOut", scrollTrigger: { trigger: ".contact__mail", start: "top 88%", once: true } });
+
     // progress + nav pill
     gsap.to("#progressBar", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
     $$(".nav__links a").forEach((a) => {
@@ -230,6 +359,19 @@
     });
     window.addEventListener("load", () => ScrollTrigger.refresh());
   }
+
+  /* ================= avatar: hop + greeting ================= */
+  const bubble = $("#bubble");
+  const hellos = ["Ciao!", "Bonjour.", "Open to internships.", "Ask me about HealthMate."];
+  let hi = 0, bubbleT;
+  const say = (t) => { bubble.textContent = t; bubble.classList.add("is-on"); clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove("is-on"), 2200); };
+  $("#avatarCard").addEventListener("click", () => {
+    const c = $("#avatarCard");
+    c.classList.remove("is-hop"); void c.offsetWidth; c.classList.add("is-hop");
+    say(hellos[hi++ % hellos.length]);
+  });
+  setTimeout(() => say("Ciao!"), 2600);
+  if (!hasGSAP) $$(".hero__title em").forEach((e) => e.classList.add("is-drawn"));
 
   /* ================= avatar tilt ================= */
   const card = $("#avatarCard");
@@ -341,7 +483,7 @@
     taps++; clearTimeout(tapT); tapT = setTimeout(() => { taps = 0; }, 1500);
     if (taps < 5) return;
     taps = 0;
-    const fire = () => window.confetti({ particleCount: 160, spread: 85, origin: { y: 0.12 }, colors: ["#d4ff3a", "#f2f2ee", "#8a8a84"] });
+    const fire = () => window.confetti({ particleCount: 160, spread: 85, origin: { y: 0.12 }, colors: ["#6e1f2a", "#b08d57", "#23392c"] });
     if (window.confetti) fire();
     else { const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"; s.onload = fire; document.head.appendChild(s); }
     toast.textContent = "You found the easter egg. Nice. 🏁";
