@@ -2,8 +2,10 @@
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  // Motion is on by default (the site is meant to be animated); visitors can turn it off in the footer.
-  const reduce = document.documentElement.classList.contains("reduce-motion");
+  // Ambient motion (fades, typewriter, globe, smooth scroll) always runs.
+  // If the visitor's OS asks for reduced motion, the strongest effects (boot screen, tilt, parallax) stay off.
+  const reduce = false;
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const hasGSAP = typeof window.gsap !== "undefined";
 
@@ -11,6 +13,53 @@
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
   $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- Terminal boot sequence ---------- */
+  const boot = $("#boot"), bootLog = $("#bootLog");
+  let seen = false;
+  try { seen = sessionStorage.getItem("booted") === "1"; } catch (e) {}
+  let bootDone = Promise.resolve();
+  if (calm || seen) {
+    document.documentElement.classList.add("no-boot");
+  } else {
+    document.body.style.overflow = "hidden";
+    const lines = [
+      ["> initializing portfolio...", ""],
+      ["> loading skills...", " ✓"],
+      ["> loading projects...", " ✓"],
+      ["> ready. welcome.", ""],
+    ];
+    bootDone = new Promise((resolve) => {
+      let html = "", li = 0, ci = 0, finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        try { sessionStorage.setItem("booted", "1"); } catch (e) {}
+        boot.classList.add("is-done");
+        document.body.style.overflow = "";
+        resolve();
+      };
+      const render = () => { bootLog.innerHTML = html + '<span class="cur"></span>'; };
+      const tick = () => {
+        if (finished) return;
+        if (li >= lines.length) { setTimeout(finish, 350); return; }
+        const [text, ok] = lines[li];
+        if (ci < text.length) {
+          html += text[ci++].replace("<", "&lt;").replace(">", "&gt;");
+          render();
+          setTimeout(tick, 16);
+        } else {
+          html += (ok ? `<span class="ok">${ok}</span>` : "") + "\n";
+          li++; ci = 0;
+          render();
+          setTimeout(tick, 160);
+        }
+      };
+      tick();
+      $("#bootSkip").addEventListener("click", finish);
+      document.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === "Escape") finish(); }, { once: true });
+    });
+  }
 
   /* ---------- Smooth scroll ---------- */
   let lenis = null;
@@ -43,8 +92,11 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.clearScrollMemory("manual");
     if (!reduce) {
-      gsap.from("[data-hero]", { y: 20, opacity: 0, duration: 0.6, ease: "power2.out", stagger: 0.2, delay: 0.1 });
-      gsap.from(".ficon", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)", stagger: 0.08, delay: 0.8 });
+      const heroIn = gsap.timeline({ paused: true })
+        .from("[data-hero]", { y: 24, opacity: 0, duration: 0.7, ease: "power3.out", stagger: 0.12 })
+        .from(".ficon", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)", stagger: 0.08 }, "-=0.4");
+      gsap.set("[data-hero]", { opacity: 0 });
+      bootDone.then(() => { gsap.set("[data-hero]", { opacity: 1 }); heroIn.play(); });
       $$(".title").forEach((el) => {
         gsap.from(el, { x: -20, opacity: 0, duration: 0.5, ease: "power2.out", clearProps: "transform",
           scrollTrigger: { trigger: el, start: "top 88%", once: true, onEnter: () => el.classList.add("is-in") } });
@@ -63,14 +115,13 @@
         });
       });
       // avatar trails the text slightly on scroll for depth
-      gsap.fromTo(".hero__visual", { y: 0 }, { y: () => innerHeight * 0.15, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-      gsap.fromTo(".hero__copy", { y: 0, opacity: 1 }, { y: () => innerHeight * 0.05, opacity: 0.4, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+      if (!calm) gsap.fromTo(".hero__visual", { y: 0 }, { y: () => innerHeight * 0.15, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+      if (!calm) gsap.fromTo(".hero__copy", { y: 0, opacity: 1 }, { y: () => innerHeight * 0.05, opacity: 0.4, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
     }
-    gsap.to("#progressBar", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.2 } });
     $$(".nav__links a").forEach((a) => {
       const id = a.getAttribute("href");
       const sec = id === "#top" ? $(".hero") : $(id);
-      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 50%", end: "bottom 50%", onToggle: (s) => a.classList.toggle("is-active", s.isActive) });
+      if (sec) ScrollTrigger.create({ trigger: sec, start: "top 40%", end: "bottom 40%", onToggle: (s) => { if (s.isActive) $$(".nav__links a").forEach((x) => x.classList.toggle("is-active", x === a)); else a.classList.remove("is-active"); } });
     });
     window.addEventListener("load", () => ScrollTrigger.refresh());
   }
@@ -117,7 +168,7 @@
 
   /* ---------- Avatar: 3D tilt + click ---------- */
   const stage = $("#stage");
-  if (fine && !reduce) {
+  if (fine && !calm) {
     let tx = 0, ty = 0, cx = 0, cy = 0;
     window.addEventListener("pointermove", (e) => {
       tx = (e.clientX / innerWidth - 0.5) * 15;
@@ -161,12 +212,12 @@
   const cloud = $("#cloud");
   const SKILLS = ["Python", "FastAPI", "Next.js", "React", "TypeScript", "Supabase", "PostgreSQL", "MongoDB", "Node.js", "Express",
     "Git", "AWS", "Flask", "Three.js", "CSS3", "HTML5", "Java", "MySQL", "LLMs", "Pandas"];
-  const COLORS = ["#38bdf8", "#e2e8f0", "#60a5fa"];
+  const COLORS = ["#c084fc", "#ececf5", "#f472b6"];
   const words = SKILLS.map((name, i) => {
     const ring = i % 3;
     const el = document.createElement("span");
     el.textContent = name;
-    el.style.fontSize = 14 + ring * 4 + "px";
+    el.style.fontSize = 16 + ring * 4 + "px";
     el.style.fontWeight = ring === 1 ? 700 : 500;
     el.style.color = COLORS[i % COLORS.length];
     cloud.appendChild(el);
@@ -210,7 +261,8 @@
         const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
         card.style.setProperty("--mx", (x + 0.5) * 100 + "%");
         card.style.setProperty("--my", (y + 0.5) * 100 + "%");
-        if (!reduce) card.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${y * -8}deg) scale(1.02)`;
+        const k = card.classList.contains("cell") ? 8 : 6;
+        if (!calm) card.style.transform = `perspective(1000px) rotateY(${x * k}deg) rotateX(${y * -k}deg) scale(1.02)`;
       });
       card.addEventListener("pointerleave", () => { card.style.transform = ""; });
     });
@@ -245,15 +297,6 @@
       requestAnimationFrame(loop);
     })();
   }
-
-  /* ---------- Motion toggle ---------- */
-  const mt = $("#motionToggle");
-  mt.textContent = reduce ? "Enable motion" : "Reduce motion";
-  mt.setAttribute("aria-pressed", String(reduce));
-  mt.addEventListener("click", () => {
-    try { localStorage.setItem("motion", reduce ? "on" : "off"); } catch (e) {}
-    location.reload();
-  });
 
   /* ---------- Resume modal ---------- */
   const modal = $("#resumeModal"), frame = $("#resumeFrame");
